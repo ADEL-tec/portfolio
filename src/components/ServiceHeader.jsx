@@ -12,7 +12,7 @@ export default function ServiceHeader({ name, icon, description, id }) {
           className="px-10 py-2.5 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2 dark:border-transparent"
         >
           My Projects{" "}
-          <img src="/assets/right-arrow-white.png" alt="" className="w-4" />
+          <img src="assets/right-arrow-white.png" alt="" className="w-4" />
         </a>
       </div>
     </div>

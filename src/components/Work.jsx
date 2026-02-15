@@ -4,25 +4,25 @@ export default function Work() {
   const work = [
     {
       name: "AwashZ",
-      cover: "/assets/work-1.png",
+      cover: "assets/work-1.png",
       description: "Mobile Application",
       id: "0",
     },
     // {
     //   name: "Geo based app",
-    //   cover: "/assets/work-2.png",
+    //   cover: "assets/work-2.png",
     //   description: "mobile app",
     //   id: "1",
     // },
     // {
     //   name: "Photography site",
-    //   cover: "/assets/work-3.png",
+    //   cover: "assets/work-3.png",
     //   description: "Web Design",
     //   id: "2",
     // },
     // {
     //   name: "UI/UX designing",
-    //   cover: "/assets/work-4.png",
+    //   cover: "assets/work-4.png",
     //   description: "UI/UX Design",
     //   id: "3",
     // },
@@ -49,7 +49,7 @@ export default function Work() {
                   <p className="text-sm text-gray-700">{work.description}</p>
                 </div>
                 <div className="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
-                  <img src="/assets/send-icon.png" alt="" className="w-5" />
+                  <img src="assets/send-icon.png" alt="" className="w-5" />
                 </div>
               </div>
             </div>

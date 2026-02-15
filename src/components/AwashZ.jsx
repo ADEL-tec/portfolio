@@ -55,8 +55,8 @@ export const featuresData = [
 ];
 
 export const gallery = [
-  "/assets/work-1-gal-1.jpg",
-  "/assets/work-1-gal-2.png",
-  "/assets/work-1-gal-3.png",
-  "/assets/work-1-gal-4.png",
+  "assets/work-1-gal-1.jpg",
+  "assets/work-1-gal-2.png",
+  "assets/work-1-gal-3.png",
+  "assets/work-1-gal-4.png",
 ];

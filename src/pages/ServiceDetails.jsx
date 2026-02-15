@@ -4,7 +4,7 @@ import ServiceHeader from "../components/ServiceHeader";
 const services = [
   {
     name: "Mobile app",
-    icon: "/assets/mobile-icon.png",
+    icon: "assets/mobile-icon.png",
     description:
       "I design and build high-performance mobile applications that are reliable, scalable, and tailored to real business needs. From idea to store release, I deliver smooth user experiences and clean architecture.",
     id: "0",
@@ -33,7 +33,7 @@ const services = [
   },
   {
     name: "Web design",
-    icon: "/assets/web-icon.png",
+    icon: "assets/web-icon.png",
     description:
       "I develop fast, modern, and responsive websites and web applications that convert visitors into users and support business growth.",
     id: "1",
@@ -68,7 +68,7 @@ const services = [
 
   {
     name: "UI/ UX design",
-    icon: "/assets/ui-icon.png",
+    icon: "assets/ui-icon.png",
     description:
       "I design intuitive and visually appealing user experiences that focus on clarity, usability, and user satisfaction.",
     id: "2",

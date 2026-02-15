@@ -4,21 +4,21 @@ export default function Footer() {
       <div className="text-center">
         <a href="#!">
           <img
-            src="/assets/logo.png"
+            src="assets/logo.png"
             alt=""
             className="w-36 mx-auto mb-2 dark:hidden"
           />
           <img
-            src="/assets/logo_dark.png"
+            src="assets/logo_dark.png"
             alt=""
             className="w-36 mx-auto mb-2 hidden dark:block"
           />
         </a>
 
         <div className="w-max flex items-center gap-2 mx-auto">
-          <img src="/assets/mail_icon.png" alt="" className="w-5 dark:hidden" />
+          <img src="assets/mail_icon.png" alt="" className="w-5 dark:hidden" />
           <img
-            src="/assets/mail_icon_dark.png"
+            src="assets/mail_icon_dark.png"
             alt=""
             className="w-5 hidden dark:block"
           />

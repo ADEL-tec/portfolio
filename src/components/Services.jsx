@@ -4,26 +4,26 @@ export default function Services() {
   const services = [
     {
       name: "Mobile app",
-      icon: "/assets/mobile-icon.png",
+      icon: "assets/mobile-icon.png",
       description: "Web development is the process of building, programming...",
       id: "0",
     },
     {
       name: "Web design",
-      icon: "/assets/web-icon.png",
+      icon: "assets/web-icon.png",
       description: "Web development is the process of building, programming...",
       id: "1",
     },
 
     {
       name: "UI/ UX design",
-      icon: "/assets/ui-icon.png",
+      icon: "assets/ui-icon.png",
       description: "Web development is the process of building, programming...",
       id: "2",
     },
     // {
     //     name: 'Graphics design',
-    //     icon: '/assets/graphics-icon.png',
+    //     icon: 'assets/graphics-icon.png',
     //     description: 'Web development is the process of building, programming...',
     //     link: '#',
     // }
@@ -55,7 +55,7 @@ export default function Services() {
               className="flex items-center gap-2 text-sm mt-5"
             >
               Read more
-              <img src="/assets/right-arrow.png" alt="" className="w-4" />
+              <img src="assets/right-arrow.png" alt="" className="w-4" />
             </Link>
           </div>
         ))}

@@ -76,7 +76,7 @@ export default function Navbar() {
   return (
     <>
       <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
-        <img src="/assets/header-bg-color.png" alt="" className="w-full" />
+        <img src="assets/header-bg-color.png" alt="" className="w-full" />
       </div>
 
       <nav
@@ -85,12 +85,12 @@ export default function Navbar() {
       >
         <a href="/#!">
           <img
-            src="/assets/logo.png"
+            src="assets/logo.png"
             alt="Logo"
             className="w-28 cursor-pointer mr-14 dark:hidden"
           />
           <img
-            src="/assets/logo_dark.png"
+            src="assets/logo_dark.png"
             alt="Logo"
             className="w-28 cursor-pointer mr-14 hidden dark:block"
           />
@@ -145,12 +145,12 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <button onClick={toggleTheme}>
             <img
-              src="/assets/moon_icon.png"
+              src="assets/moon_icon.png"
               alt=""
               className="w-5 dark:hidden"
             />
             <img
-              src="/assets/sun_icon.png"
+              src="assets/sun_icon.png"
               alt=""
               className="w-5 hidden dark:block"
             />
@@ -162,12 +162,12 @@ export default function Navbar() {
           >
             Contact
             <img
-              src="/assets/arrow-icon.png"
+              src="assets/arrow-icon.png"
               alt=""
               className="w-3 dark:hidden"
             />
             <img
-              src="/assets/arrow-icon-dark.png"
+              src="assets/arrow-icon-dark.png"
               alt=""
               className="w-3 hidden dark:block"
             />
@@ -175,12 +175,12 @@ export default function Navbar() {
 
           <button className="block md:hidden ml-3" onClick={openMenu}>
             <img
-              src="/assets/menu-black.png"
+              src="assets/menu-black.png"
               alt=""
               className="w-6 dark:hidden"
             />
             <img
-              src="/assets/menu-white.png"
+              src="assets/menu-white.png"
               alt=""
               className="w-6 hidden dark:block"
             />
@@ -193,12 +193,12 @@ export default function Navbar() {
         >
           <div className="absolute right-6 top-6" onClick={closeMenu}>
             <img
-              src="/assets/close-black.png"
+              src="assets/close-black.png"
               alt=""
               className="w-5 cursor-pointer dark:hidden"
             />
             <img
-              src="/assets/close-white.png"
+              src="assets/close-white.png"
               alt=""
               className="w-5 cursor-pointer hidden dark:block"
             />
