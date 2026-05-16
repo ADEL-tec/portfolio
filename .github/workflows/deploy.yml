@@ -1,0 +1,57 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Static export cannot bundle middleware or API routes. We move them
+      # aside on the CI runner only — the source tree on `main` is untouched.
+      - name: Hide non-static-exportable code from the build
+        run: |
+          if [ -f middleware.ts ]; then
+            mv middleware.ts middleware.ts.disabled
+          fi
+          if [ -d app/api ]; then
+            mv app/api app/_api.disabled
+          fi
+
+      - name: Build static export
+        run: npx next build
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_SITE_URL: https://adel-tec.github.io/portfolio
+
+      # GitHub Pages defaults to Jekyll, which strips `_next/` paths. The
+      # marker file turns Jekyll off so the underscore folder gets served.
+      - name: Disable Jekyll on the artifact
+        run: touch ./out/.nojekyll
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: gh-pages
+          commit_message: "deploy: ${{ github.event.head_commit.message }}"

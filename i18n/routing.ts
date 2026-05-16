@@ -4,9 +4,10 @@ export const routing = defineRouting({
   locales: ["en", "fr", "ar"],
   defaultLocale: "en",
 
-  // 'as-needed' keeps the default locale unprefixed (`/`), and prefixes others
-  // (`/fr/...`, `/ar/...`). Switch to 'always' if you want canonical `/en/...`.
-  localePrefix: "as-needed",
+  // 'always' is required for static export — every page must have a locale
+  // in its path so it can be pre-rendered to a unique file. The bare `/`
+  // is handled by `public/index.html`, which meta-refreshes to `/en/`.
+  localePrefix: "always",
 });
 
 export type Locale = (typeof routing.locales)[number];

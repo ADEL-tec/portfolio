@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Adel Labdelli Merioua — Portfolio</title>
+    <!-- Site is locale-prefixed; redirect the bare path to the default locale. -->
+    <meta http-equiv="refresh" content="0;url=./en/" />
+    <link rel="canonical" href="./en/" />
+    <script>
+      // Negotiate based on browser language when available.
+      (function () {
+        try {
+          var supported = ["en", "fr", "ar"];
+          var lang = (navigator.language || "en").slice(0, 2).toLowerCase();
+          var target = supported.indexOf(lang) >= 0 ? lang : "en";
+          location.replace("./" + target + "/");
+        } catch (e) {
+          /* meta refresh handles the fallback */
+        }
+      })();
+    </script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #0a0a0a;
+        color: #fafafa;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      a {
+        color: #4f7df1;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Redirecting… <a href="./en/">Continue to portfolio</a></p>
+  </body>
+</html>

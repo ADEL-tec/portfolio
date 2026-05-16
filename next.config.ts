@@ -1,30 +1,32 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-// Points the plugin at the i18n request config (locales, messages, time zone).
-// Create ./i18n/request.ts alongside ./i18n/routing.ts before running `next dev`.
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
+
+// Static export targets a sub-path host (adel-tec.github.io/portfolio).
+// `basePath` rewrites all internal links and `assetPrefix` the asset URLs.
+// Toggle via `STATIC_EXPORT=1`: dev keeps clean URLs and full Next features.
+const staticExport = process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  // next/image optimization. Add remote hosts here when serving project
-  // screenshots from a CDN (Cloudinary, Vercel Blob, GitHub avatars, etc.).
+  ...(staticExport && {
+    output: "export",
+    basePath: "/portfolio",
+    assetPrefix: "/portfolio",
+    trailingSlash: true,
+  }),
+
   images: {
+    // The Image Optimization API needs a Node runtime — gone in static export.
+    // Fall back to serving the source bytes as-is.
+    unoptimized: staticExport,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
-  },
-
-  // Locale prefixing (e.g. `/` → `/en`) is handled by the next-intl middleware,
-  // not by this block. Use `redirects` only for non-locale canonical URLs.
-  async redirects() {
-    return [
-      { source: "/home", destination: "/", permanent: true },
-      { source: "/index", destination: "/", permanent: true },
-    ];
   },
 };
 
