@@ -1,0 +1,442 @@
+{
+  "personal": {
+    "fullName": "Adel Labdelli Merioua",
+    "title": "Full-Stack Developer & Mobile Application Specialist",
+    "subtitle": "Flutter | Web Development | UI Design",
+    "location": "Doha, Qatar",
+    "email": "meriouaadel22@gmail.com",
+    "phone": "+974 6005 9654",
+    "yearsExperience": 5,
+    "bio": "Mobile Application Developer with 5+ years of experience specializing in Flutter and cross-platform development. Expert in building scalable, high-performance applications with modern architecture patterns. Also proficient in full-stack web development, UI/UX design, and cloud deployment.",
+    "shortBio": "Full-Stack Developer crafting beautiful, performant mobile and web applications with modern technologies.",
+    "avatar": "/images/avatar.jpg",
+    "backgroundImage": "/images/hero-bg.jpg"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/adel-labdelli-merioua-1a4219209/",
+    "github": "https://github.com/ADEL-tec",
+    "portfolio": "https://adel-tec.github.io/portfolio/",
+    "twitter": "",
+    "instagram": "",
+    "email": "meriouaadel22@gmail.com"
+  },
+  "expertise": {
+    "primary": [
+      {
+        "category": "Mobile Development",
+        "skills": ["Flutter", "Dart", "iOS Development", "Android Development", "Cross-Platform Apps"],
+        "icon": "mobile",
+        "description": "Expertise in building responsive, performant cross-platform mobile applications using Flutter with Material Design and Cupertino guidelines."
+      },
+      {
+        "category": "Backend Development",
+        "skills": ["Node.js", "Express.js", "NestJS", "RESTful APIs", "Firebase", "GraphQL"],
+        "icon": "server",
+        "description": "Strong backend development skills with modern frameworks, scalable API design, and real-time database management."
+      },
+      {
+        "category": "Frontend Web Development",
+        "skills": ["JavaScript (ES6+)", "TypeScript", "React", "Responsive Design", "Material Design"],
+        "icon": "code",
+        "description": "Professional frontend development with modern frameworks, accessibility standards, and performance optimization."
+      }
+    ],
+    "databases": ["Firebase", "MongoDB", "PostgreSQL", "MySQL", "Supabase"],
+    "cloud": ["GCP", "AWS (S3, API Gateway, CloudWatch)", "Docker", "GitHub Actions"],
+    "tools": ["Git", "Postman", "Swagger", "VS Code", "Linux"],
+    "architecture": ["Clean Architecture", "MVC", "BLoC Pattern", "Provider State Management", "JWT Authentication", "RBAC"]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "AwashZ - On-Demand Car Wash & Auto Services",
+      "subtitle": "Location-based mobile service platform",
+      "description": "Developed a comprehensive location-based mobile application enabling users to book professional car wash and auto services delivered directly to their location. The platform streamlines service scheduling, tracking, and payment processing while providing administrative tools for operational management.",
+      "fullDescription": "AwashZ is a production-ready mobile application built with Flutter that revolutionizes how users access car wash and auto services. The app features real-time location tracking, service provider management, secure payment processing, and comprehensive admin dashboard. Implemented push notifications via FCM for appointment reminders and service updates.",
+      "technologies": ["Flutter", "Dart", "Firebase", "FCM (Push Notifications)", "REST API", "Google Maps API"],
+      "role": "Lead Mobile Developer",
+      "duration": "3 months",
+      "status": "Published",
+      "image": "/images/projects/awashz.jpg",
+      "images": [
+        "/images/projects/awashz-1.jpg",
+        "/images/projects/awashz-2.jpg",
+        "/images/projects/awashz-3.jpg"
+      ],
+      "features": [
+        "Real-time service booking with instant confirmation",
+        "GPS tracking and location-based service discovery",
+        "Secure payment processing integration",
+        "Appointment scheduling and reminders via FCM",
+        "Service provider management dashboard",
+        "Rating and review system",
+        "Real-time notifications and updates"
+      ],
+      "links": {
+        "playStore": "https://play.google.com/store/apps/details?id=com.fiveline.awaashz",
+        "appStore": "",
+        "github": ""
+      },
+      "category": "Mobile App",
+      "highlights": ["Production Ready", "Published on Play Store", "Real-time Services", "Payment Integration"],
+      "testimonial": "High-performance app with smooth UX and reliable service delivery"
+    },
+    {
+      "id": 2,
+      "title": "Glamix - Salon Booking & Appointment Management",
+      "subtitle": "Professional salon services discovery platform",
+      "description": "Developed a mobile application for discovering and booking salon and grooming services. Implemented real-time appointment scheduling with availability management and integrated secure payment options. Built features for service browsing, user reviews, and intelligent appointment reminders.",
+      "fullDescription": "Glamix is a sophisticated salon and grooming services marketplace app. Users can discover nearby salons, browse services, check real-time availability, and book appointments seamlessly. The app includes a comprehensive review and rating system, push notification reminders, and integrated payment processing. Service providers have access to a dedicated dashboard for managing appointments and availability.",
+      "technologies": ["Flutter", "Dart", "Firebase", "REST API", "Payment Gateway Integration"],
+      "role": "Full-Stack Mobile Developer",
+      "duration": "2.5 months",
+      "status": "Published",
+      "image": "/images/projects/glamix.jpg",
+      "images": [
+        "/images/projects/glamix-1.jpg",
+        "/images/projects/glamix-2.jpg",
+        "/images/projects/glamix-3.jpg"
+      ],
+      "features": [
+        "Service discovery with filters and search",
+        "Real-time appointment availability",
+        "Secure booking confirmation system",
+        "Integrated payment processing",
+        "User reviews and ratings",
+        "Appointment reminders and notifications",
+        "Salon management dashboard",
+        "Real-time availability updates"
+      ],
+      "links": {
+        "playStore": "https://play.google.com/store/apps/details?id=com.fiveline.glamix",
+        "appStore": "",
+        "github": ""
+      },
+      "category": "Mobile App",
+      "highlights": ["Two-Sided Marketplace", "Real-time Updates", "Appointment System", "Published App"],
+      "testimonial": "Intuitive interface with powerful booking management features"
+    },
+    {
+      "id": 3,
+      "title": "Discount Plus - Digital Discounts & Membership Platform",
+      "subtitle": "Smart discount aggregation and digital membership system",
+      "description": "Developed a discount aggregation platform allowing users to discover offers from nearby businesses and redeem them using QR code and barcode-based digital membership. Implemented real-time data synchronization using Firebase with user activity tracking.",
+      "fullDescription": "Discount Plus is an innovative mobile platform that bridges the gap between businesses and consumers. Users discover and redeem exclusive offers from nearby merchants using digital membership cards and barcode scanning. The platform features real-time offer synchronization, comprehensive activity tracking, savings insights, and secure authentication. Businesses benefit from detailed analytics and customer engagement tools.",
+      "technologies": ["Flutter", "Dart", "Firebase (Real-time Database)", "REST API", "QR/Barcode Scanning"],
+      "role": "Lead Mobile Developer",
+      "duration": "2 months",
+      "status": "Published",
+      "image": "/images/projects/discount-plus.jpg",
+      "images": [
+        "/images/projects/discount-plus-1.jpg",
+        "/images/projects/discount-plus-2.jpg",
+        "/images/projects/discount-plus-3.jpg"
+      ],
+      "features": [
+        "Real-time offer discovery and synchronization",
+        "QR/Barcode scanning for digital redemption",
+        "Digital membership card management",
+        "Savings tracking and insights",
+        "Nearby business discovery",
+        "User activity and purchase history",
+        "Secure authentication",
+        "Business analytics dashboard"
+      ],
+      "links": {
+        "playStore": "https://play.google.com/store/apps/details?id=com.fiveline.discountplus",
+        "appStore": "https://apps.apple.com/us/app/discount/id6763311834",
+        "github": ""
+      },
+      "category": "Mobile App",
+      "highlights": ["Cross-Platform (iOS & Android)", "Real-time Sync", "QR Code Integration", "Dual App Stores"],
+      "testimonial": "Seamless user experience with powerful real-time data synchronization"
+    }
+  ],
+  "skills": {
+    "programmiing": {
+      "mobile": {
+        "title": "Mobile Development",
+        "items": [
+          { "name": "Flutter", "level": "Expert", "percentage": 95 },
+          { "name": "Dart", "level": "Expert", "percentage": 95 },
+          { "name": "iOS Development", "level": "Advanced", "percentage": 85 },
+          { "name": "Android Development", "level": "Advanced", "percentage": 85 },
+          { "name": "Provider State Management", "level": "Expert", "percentage": 90 },
+          { "name": "BLoC Pattern", "level": "Advanced", "percentage": 85 }
+        ]
+      },
+      "backend": {
+        "title": "Backend Development",
+        "items": [
+          { "name": "Node.js", "level": "Advanced", "percentage": 85 },
+          { "name": "Express.js", "level": "Advanced", "percentage": 85 },
+          { "name": "NestJS", "level": "Advanced", "percentage": 80 },
+          { "name": "Java", "level": "Intermediate", "percentage": 70 },
+          { "name": "Kotlin", "level": "Intermediate", "percentage": 70 },
+          { "name": "RESTful APIs", "level": "Expert", "percentage": 90 }
+        ]
+      },
+      "frontend": {
+        "title": "Frontend Web Development",
+        "items": [
+          { "name": "JavaScript (ES6+)", "level": "Advanced", "percentage": 85 },
+          { "name": "TypeScript", "level": "Advanced", "percentage": 80 },
+          { "name": "React", "level": "Advanced", "percentage": 80 },
+          { "name": "Responsive Design", "level": "Expert", "percentage": 90 },
+          { "name": "Material Design", "level": "Expert", "percentage": 92 }
+        ]
+      }
+    },
+    "databases": {
+      "title": "Databases",
+      "items": [
+        { "name": "Firebase", "level": "Expert", "percentage": 92 },
+        { "name": "MongoDB", "level": "Advanced", "percentage": 85 },
+        { "name": "PostgreSQL", "level": "Advanced", "percentage": 85 },
+        { "name": "MySQL", "level": "Advanced", "percentage": 80 },
+        { "name": "Supabase", "level": "Advanced", "percentage": 80 }
+      ]
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "items": [
+        { "name": "GCP", "level": "Advanced", "percentage": 80 },
+        { "name": "AWS", "level": "Intermediate", "percentage": 75 },
+        { "name": "Docker", "level": "Advanced", "percentage": 85 },
+        { "name": "GitHub Actions", "level": "Intermediate", "percentage": 75 },
+        { "name": "PM2", "level": "Intermediate", "percentage": 70 }
+      ]
+    },
+    "architecture": {
+      "title": "Architecture & Patterns",
+      "items": [
+        "Clean Architecture",
+        "MVC Architecture",
+        "BLoC Pattern",
+        "Provider State Management",
+        "Microservices",
+        "JWT Authentication",
+        "Role-Based Access Control (RBAC)",
+        "Secure REST API Design"
+      ]
+    },
+    "tools": {
+      "title": "Tools & Platforms",
+      "items": [
+        "Git & GitHub",
+        "VS Code",
+        "Postman",
+        "Swagger/OpenAPI",
+        "Linux",
+        "Firebase Console",
+        "Google Cloud Console",
+        "AWS Console"
+      ]
+    }
+  },
+  "experience": [
+    {
+      "id": 1,
+      "position": "Flutter Developer",
+      "company": "Fiveline Website Solutions",
+      "location": "Doha, Qatar",
+      "startDate": "June 2025",
+      "endDate": "Present",
+      "duration": "3 months",
+      "current": true,
+      "description": "Developing cross-platform mobile applications using Flutter and Dart with a focus on performance and scalability.",
+      "responsibilities": [
+        "Develop cross-platform mobile applications using Flutter and Dart",
+        "Integrate RESTful APIs and Firebase services",
+        "Implement state management solutions (Provider, BLoC)",
+        "Design responsive UI following Material and Cupertino guidelines",
+        "Ensure code quality through clean code practices and testing",
+        "Optimize application performance",
+        "Collaborate with team using Git for version control"
+      ],
+      "technologies": ["Flutter", "Dart", "Firebase", "Provider", "BLoC", "REST API"]
+    },
+    {
+      "id": 2,
+      "position": "Mobile Application Developer (Contract - Project Based)",
+      "company": "Lamlan Digital Solutions",
+      "location": "Doha, Qatar",
+      "startDate": "Mar 2025",
+      "endDate": "June 2025",
+      "duration": "3 months",
+      "current": false,
+      "description": "Delivered Flutter-based mobile applications on a project contract basis with focus on end-to-end feature implementation.",
+      "responsibilities": [
+        "End-to-end feature implementation and delivery",
+        "Integrate RESTful APIs and Firebase services",
+        "Apply state management patterns (Provider, BLoC)",
+        "Build production-ready responsive UI",
+        "Optimize performance and ensure code quality",
+        "Collaborate with cross-functional teams",
+        "Version control and task tracking with Git"
+      ],
+      "technologies": ["Flutter", "Dart", "Firebase", "Provider", "BLoC", "Material Design"]
+    },
+    {
+      "id": 3,
+      "position": "Mobile Application Developer",
+      "company": "SATL DOWAYA",
+      "location": "Sidi Bel Abbes, Algeria",
+      "startDate": "Jul 2024",
+      "endDate": "Mar 2025",
+      "duration": "8 months",
+      "current": false,
+      "description": "Built and deployed production Flutter applications for iOS and Android platforms.",
+      "responsibilities": [
+        "Build and deploy production Flutter apps",
+        "Develop custom UI using Material Design",
+        "Integrate backend APIs and third-party packages",
+        "Ensure cross-team collaboration",
+        "Meet project timelines and delivery standards"
+      ],
+      "technologies": ["Flutter", "Dart", "Material Design", "APIs"]
+    },
+    {
+      "id": 4,
+      "position": "Trainer (Flutter & Dart Development)",
+      "company": "Private School",
+      "location": "Sidi Bel Abbes, Algeria",
+      "startDate": "Sep 2022",
+      "endDate": "Mar 2025",
+      "duration": "2.5 years",
+      "current": false,
+      "description": "Delivered hands-on training in mobile application development covering Dart and Flutter.",
+      "responsibilities": [
+        "Teach Dart fundamentals and advanced concepts",
+        "Cover Flutter architecture and best practices",
+        "Guide UI development and design patterns",
+        "Implement real-world project scenarios",
+        "Mentor students through capstone projects"
+      ],
+      "technologies": ["Flutter", "Dart", "Mobile Development", "Architecture"]
+    },
+    {
+      "id": 5,
+      "position": "Freelance Full-Stack Developer",
+      "company": "Self-Employed",
+      "location": "Algiers, Algeria",
+      "startDate": "Sep 2019",
+      "endDate": "Sep 2022",
+      "duration": "3 years",
+      "current": false,
+      "description": "Full-Stack Developer building and maintaining web and mobile applications with focus on performance.",
+      "responsibilities": [
+        "Front-end development with modern frameworks",
+        "Back-end API development and management",
+        "Database design and optimization",
+        "Third-party integrations",
+        "Application deployment and DevOps",
+        "Published and maintained apps on Google Play and App Store"
+      ],
+      "technologies": ["Flutter", "Node.js", "React", "MongoDB", "Firebase", "AWS"]
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "degree": "Master's in Web and Knowledge Engineering",
+      "institution": "The Higher School of Exact Science",
+      "university": "University Djilali Lyabes",
+      "location": "Sidi Bel Abbes, Algeria",
+      "completionDate": "2024",
+      "description": "Advanced studies in web technologies, knowledge engineering, and data-driven systems with focus on AI/ML integration."
+    },
+    {
+      "id": 2,
+      "degree": "Bachelor's in Software Engineering",
+      "institution": "The Higher School of Exact Science",
+      "university": "University Djilali Lyabes",
+      "location": "Sidi Bel Abbes, Algeria",
+      "completionDate": "2021",
+      "description": "Comprehensive software engineering education covering algorithms, system design, and software development principles."
+    }
+  ],
+  "interests": {
+    "research": [
+      "AI/ML System Integration",
+      "Mobile Performance Optimization",
+      "Cross-Platform Development",
+      "Real-time Data Synchronization",
+      "Cloud Architecture"
+    ],
+    "learning": [
+      "TensorFlow & PyTorch",
+      "MLOps Pipelines",
+      "Advanced Flutter Patterns",
+      "Kubernetes & Container Orchestration",
+      "Advanced Backend Architecture"
+    ],
+    "tools": ["Flutter", "Node.js", "Firebase", "GCP", "Docker"]
+  },
+  "languages": [
+    {
+      "language": "Arabic",
+      "level": "Native",
+      "percentage": 100
+    },
+    {
+      "language": "English",
+      "level": "Professional",
+      "percentage": 85
+    },
+    {
+      "language": "French",
+      "level": "Intermediate",
+      "percentage": 70
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Flutter & Dart Development",
+      "issuer": "Professional Experience",
+      "date": "2025",
+      "description": "5+ years of professional Flutter development with multiple published applications"
+    },
+    {
+      "title": "Full-Stack Web Development",
+      "issuer": "Professional Experience",
+      "date": "2024",
+      "description": "Expertise in modern web technologies and architectures"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "author": "Project Client",
+      "position": "Business Owner",
+      "company": "AwashZ",
+      "text": "Adel delivered an exceptional mobile application. His attention to detail, performance optimization, and commitment to quality were outstanding. Highly recommended.",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "author": "Team Member",
+      "position": "Project Manager",
+      "company": "Lamlan Digital Solutions",
+      "text": "Working with Adel was a pleasure. His technical expertise, communication skills, and dedication to timely delivery exceeded expectations.",
+      "rating": 5
+    }
+  ],
+  "cta": {
+    "primary": "Let's Build Something Amazing",
+    "secondary": "Get in Touch",
+    "email": "meriouaadel22@gmail.com",
+    "phone": "+974 6005 9654"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-06-16",
+    "theme": "modern-dark",
+    "sections": ["home", "about", "expertise", "projects", "experience", "skills", "education", "contact"],
+    "seo": {
+      "title": "Adel Labdelli Merioua - Full-Stack Developer & Flutter Expert",
+      "description": "Portfolio of Adel Labdelli Merioua - 5+ years of experience in mobile development, web design, and full-stack engineering. Flutter specialist with published apps.",
+      "keywords": ["Flutter Developer", "Mobile App Development", "Full-Stack Developer", "Web Developer", "UI Designer", "Doha Qatar"]
+    }
+  }
+}

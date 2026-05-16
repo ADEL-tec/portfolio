@@ -1,0 +1,186 @@
+{
+  "Meta": {
+    "title": "Adel Labdelli Merioua — Développeur full-stack",
+    "description": "Développeur full-stack spécialisé en applications mobiles Flutter, développement web moderne et services backend déployés dans le cloud."
+  },
+  "Nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "experience": "Expérience",
+    "contact": "Contact",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "Hero": {
+    "greeting": "Bonjour, je suis",
+    "name": "Adel Labdelli Merioua",
+    "title": "Développeur full-stack & spécialiste des applications mobiles",
+    "subtitle": "Flutter · Développement web · Design UI",
+    "tagline": "Je conçois des applications mobiles et web évolutives et performantes, avec une architecture moderne — de l'idée à l'App Store.",
+    "ctaPrimary": "Voir mes projets",
+    "ctaSecondary": "Me contacter",
+    "availability": "Disponible pour de nouvelles opportunités",
+    "basedIn": "Basé à Doha, Qatar"
+  },
+  "About": {
+    "title": "À propos",
+    "heading": "Ingénieur mobile-first, full-stack de métier",
+    "bio": "Je suis développeur d'applications mobiles avec plus de 5 ans d'expérience, spécialisé en Flutter et en développement multiplateforme. Je conçois des applications de qualité production publiées sur l'App Store et le Play Store, soutenues par des services backend propres et un design UI soigné.",
+    "extended": "Au-delà du mobile, je travaille sur toute la stack — API Node.js, frontends React et déploiements cloud sur GCP et AWS. Je tiens à une architecture propre, à des itérations rapides, et à un code que la personne suivante puisse lire sans peine.",
+    "yearsExperience": "{count, plural, =0 {Tout juste démarré} =1 {# an d'expérience} other {# ans d'expérience}}",
+    "yearsLabel": "Années",
+    "projectsLabel": "Projets livrés",
+    "technologiesLabel": "Technologies",
+    "downloadCv": "Télécharger le CV",
+    "contactMe": "Me contacter"
+  },
+  "Projects": {
+    "title": "Projets sélectionnés",
+    "subtitle": "Applications de production que j'ai conçues, déployées et maintenues.",
+    "filterAll": "Tous",
+    "filterMobile": "Mobile",
+    "filterWeb": "Web",
+    "viewProject": "Voir le projet",
+    "viewCode": "Voir le code",
+    "viewLive": "Démo en ligne",
+    "playStore": "Google Play",
+    "appStore": "App Store",
+    "technologies": "Construit avec",
+    "role": "Rôle",
+    "duration": "Durée",
+    "status": {
+      "published": "Publié",
+      "inProgress": "En cours",
+      "archived": "Archivé"
+    },
+    "items": {
+      "awashz": {
+        "title": "AwashZ — Lavage auto à la demande",
+        "subtitle": "Plateforme de services mobiles basée sur la localisation",
+        "shortDescription": "Une application Flutter de qualité production qui permet aux utilisateurs de réserver des services de lavage et d'entretien automobile directement à leur emplacement.",
+        "fullDescription": "AwashZ est une plateforme de services à la demande complète, avec suivi de localisation en temps réel, paiements sécurisés et un tableau de bord pour les prestataires. Les notifications push via FCM tiennent les clients informés à chaque étape du rendez-vous.",
+        "highlights": "Réservations en temps réel · Suivi GPS · Paiements · Notifications push"
+      },
+      "glamix": {
+        "title": "Glamix — Réservation de salons",
+        "subtitle": "Place de marché des services de salon et de beauté",
+        "shortDescription": "Une application de découverte de salons et de prise de rendez-vous, avec disponibilité en temps réel, paiements intégrés et rappels intelligents.",
+        "fullDescription": "Glamix permet aux utilisateurs de découvrir des salons à proximité, de parcourir les prestations et de réserver des rendez-vous en toute fluidité. Inclut un système d'avis, des rappels push et un tableau de bord dédié aux prestataires pour gérer leurs disponibilités.",
+        "highlights": "Disponibilité en temps réel · Avis · Passerelle de paiement · Espace prestataire"
+      },
+      "discountPlus": {
+        "title": "Discount Plus — Fidélité & coupons",
+        "subtitle": "Plateforme numérique de fidélité et de coupons",
+        "shortDescription": "Une application mobile de fidélité et de coupons qui connecte les commerçants locaux aux acheteurs grâce à des offres géolocalisées et un portefeuille de points.",
+        "fullDescription": "Discount Plus est une application Flutter multiplateforme proposant des offres géolocalisées, un portefeuille de points numérique et un portail commerçant pour émettre et valider les coupons. Construite sur Firebase avec authentification sécurisée et mises à jour d'offres en temps réel.",
+        "highlights": "Offres géolocalisées · Portefeuille de points · Espace commerçant · Backend Firebase"
+      }
+    }
+  },
+  "Skills": {
+    "title": "Compétences & expertise",
+    "subtitle": "Les outils et les patterns sur lesquels je m'appuie pour livrer un logiciel fiable.",
+    "categories": {
+      "mobile": {
+        "title": "Développement mobile",
+        "description": "Applications multiplateformes réactives et performantes avec Flutter, suivant les directives Material Design et Cupertino."
+      },
+      "backend": {
+        "title": "Développement backend",
+        "description": "API REST et GraphQL évolutives avec Node.js, Express et NestJS, soutenues par des bases de données temps réel et relationnelles."
+      },
+      "frontend": {
+        "title": "Développement web frontend",
+        "description": "Interfaces web modernes et accessibles avec TypeScript et React — axées sur la performance et une conception de composants propre."
+      },
+      "databases": "Bases de données",
+      "cloud": "Cloud & DevOps",
+      "tools": "Outils",
+      "architecture": "Architecture & patterns"
+    }
+  },
+  "Experience": {
+    "title": "Expérience",
+    "subtitle": "Plus de cinq ans à construire des logiciels en production, sur mobile, web et backend.",
+    "current": "Actuel",
+    "viewMore": "Voir le détail",
+    "items": {
+      "lead": {
+        "role": "Développeur mobile principal",
+        "company": "Fiveline",
+        "period": "2023 — Présent",
+        "description": "Pilotage de la livraison d'applications mobiles pour des plateformes de services à la demande (AwashZ, Glamix). Responsabilité de bout en bout sur les apps Flutter, les backends Firebase et les publications Play Store / App Store."
+      },
+      "fullStack": {
+        "role": "Développeur full-stack",
+        "company": "Indépendant",
+        "period": "2021 — 2023",
+        "description": "Conception d'applications Flutter multiplateformes et d'API Node.js pour des clients à travers le Golfe. Axé sur l'architecture propre, l'intégration de paiements et les fonctionnalités temps réel."
+      },
+      "mobile": {
+        "role": "Développeur d'applications mobiles",
+        "company": "Clients divers",
+        "period": "2019 — 2021",
+        "description": "Mise en production de plusieurs applications Flutter, acquérant une expérience approfondie en gestion d'état (BLoC, Provider), Firebase et intégration REST."
+      }
+    }
+  },
+  "Contact": {
+    "title": "Travaillons ensemble",
+    "subtitle": "Un projet en tête, ou simplement envie d'échanger ? Je serais ravi d'en discuter.",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Téléphone",
+    "locationLabel": "Localisation",
+    "socialLabel": "Me retrouver en ligne",
+    "form": {
+      "name": "Votre nom",
+      "namePlaceholder": "Jean Dupont",
+      "email": "Votre e-mail",
+      "emailPlaceholder": "jean@exemple.com",
+      "subject": "Sujet",
+      "subjectPlaceholder": "Demande de projet, collaboration, …",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-moi un peu de ce que vous construisez.",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi…",
+      "success": "Merci ! Je vous réponds très vite.",
+      "error": "Une erreur est survenue. Réessayez ou écrivez-moi directement."
+    }
+  },
+  "Footer": {
+    "tagline": "Conçu et développé avec soin.",
+    "rights": "© {year} Adel Labdelli Merioua. Tous droits réservés.",
+    "builtWith": "Construit avec Next.js & Tailwind",
+    "viewSource": "Voir le code source",
+    "backToTop": "Retour en haut"
+  },
+  "LanguageSwitcher": {
+    "label": "Langue",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "ThemeToggle": {
+    "label": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "Common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "more": "Plus",
+    "less": "Moins",
+    "loading": "Chargement…",
+    "readMore": "Lire la suite",
+    "readLess": "Réduire",
+    "openInNewTab": "Ouvre un nouvel onglet",
+    "notFound": "Page introuvable",
+    "tryAgain": "Réessayer"
+  }
+}
