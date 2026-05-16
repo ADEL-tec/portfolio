@@ -10,7 +10,12 @@ import { routing, isRtl, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { PageTransition } from "@/components/layout/page-transition";
+// ChatWidget is intentionally not mounted — the assistant is built but the
+// public site doesn't surface it. Re-add `import { ChatWidget } from
+// "@/components/chat/widget"` and the `<ChatWidget />` line below to re-enable.
 import { NO_FLASH_SCRIPT } from "@/lib/theme";
+import { pageMetadata } from "@/lib/seo";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
@@ -19,11 +24,18 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-export const metadata: Metadata = {
-  title: "Adel Labdelli Merioua — Full-Stack Developer",
-  description:
-    "Mobile and web application developer specializing in Flutter and full-stack engineering.",
-};
+// Default metadata used when a child page doesn't define `generateMetadata`.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const safeLocale = hasLocale(routing.locales, locale)
+    ? (locale as Locale)
+    : routing.defaultLocale;
+  return pageMetadata({ locale: safeLocale, path: "/" });
+}
 
 // Pre-render every supported locale at build time.
 export function generateStaticParams() {
@@ -71,7 +83,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider defaultTheme="system">
             <Header />
-            <div className="flex flex-1 flex-col">{children}</div>
+            <PageTransition>{children}</PageTransition>
             <Footer />
           </ThemeProvider>
         </NextIntlClientProvider>

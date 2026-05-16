@@ -20,7 +20,9 @@ import { useLocale } from "next-intl";
 
 import { routing, type Locale } from "@/i18n/routing";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import type { ChatMessage, ChatRequest } from "@/types";
+
+// The chat hook moved to its own file. Import from `@/lib/hooks/use-claude-chat`.
+export { useClaudeChat } from "@/lib/hooks/use-claude-chat";
 
 // ─── Theme ─────────────────────────────────────────────────────────────────
 
@@ -201,79 +203,3 @@ export function useClipboard(resetMs: number = 2000) {
   return { copied, copy };
 }
 
-// ─── Claude chat ───────────────────────────────────────────────────────────
-
-export interface UseClaudeAPIResult {
-  messages: ChatMessage[];
-  isLoading: boolean;
-  /** Last error message, or `null` if the previous send succeeded. */
-  error: string | null;
-  /** Send a user message and append the assistant reply when it arrives. */
-  send: (content: string) => Promise<void>;
-  /** Clear the conversation. */
-  reset: () => void;
-}
-
-/**
- * Drives a chat conversation against `/api/claude`. The hook owns the
- * message list; render it however you like. The server route validates
- * the payload and (once wired up) forwards to the Anthropic SDK.
- */
-export function useClaudeAPI(): UseClaudeAPIResult {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const send = useCallback(async (content: string) => {
-    if (!content.trim()) return;
-
-    const userMsg: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: "user",
-      content,
-      createdAt: Date.now(),
-    };
-
-    setIsLoading(true);
-    setError(null);
-    // Optimistically append the user turn so the UI updates immediately.
-    setMessages((prev) => {
-      const next = [...prev, userMsg];
-      void postChat(next).then(
-        (assistant) =>
-          setMessages((curr) => [...curr, { ...assistant, id: crypto.randomUUID() }]),
-        (err: Error) => setError(err.message),
-      ).finally(() => setIsLoading(false));
-      return next;
-    });
-  }, []);
-
-  const reset = useCallback(() => {
-    setMessages([]);
-    setError(null);
-  }, []);
-
-  return { messages, isLoading, error, send, reset };
-}
-
-async function postChat(history: ChatMessage[]): Promise<ChatMessage> {
-  const body: ChatRequest = {
-    messages: history.map(({ role, content }) => ({ role, content })),
-  };
-  const res = await fetch("/api/claude", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(text || `Request failed: ${res.status}`);
-  }
-  const data: { role: "assistant"; content: string } = await res.json();
-  return {
-    id: "", // assigned by caller
-    role: "assistant",
-    content: data.content,
-    createdAt: Date.now(),
-  };
-}

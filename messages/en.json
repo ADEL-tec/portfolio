@@ -156,6 +156,22 @@
     "viewSource": "View source",
     "backToTop": "Back to top"
   },
+  "Chat": {
+    "openLabel": "Open chat",
+    "closeLabel": "Close chat",
+    "title": "Portfolio assistant",
+    "subtitle": "Powered by Claude",
+    "welcome": "Hi! Ask me anything about Adel's projects, skills, or experience.",
+    "placeholder": "Type a message…",
+    "send": "Send",
+    "clear": "Clear conversation",
+    "download": "Download transcript",
+    "copy": "Copy reply",
+    "copied": "Copied",
+    "thinking": "Thinking…",
+    "error": "Something went wrong. Please try again.",
+    "offline": "The chat backend isn't reachable from this deployment."
+  },
   "LanguageSwitcher": {
     "label": "Language",
     "en": "English",

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
@@ -6,6 +7,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from "next-intl/server";
+import { hasLocale } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -18,11 +20,31 @@ import {
   type Locale,
 } from "@/lib/data";
 import { ProjectCard } from "@/components/sections/project-card";
+import { routing } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
 
 type PageProps = { params: Promise<{ locale: string; id: string }> };
 
 export function generateStaticParams() {
   return getProjects().map((p) => ({ id: p.id }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale, id } = await params;
+  const safe = hasLocale(routing.locales, locale)
+    ? (locale as Locale)
+    : routing.defaultLocale;
+  const project = getProjectById(id);
+  if (!project) {
+    return pageMetadata({ locale: safe, path: `/projects/${id}` });
+  }
+  return pageMetadata({
+    locale: safe,
+    path: `/projects/${id}`,
+    title: pick(project.title, safe),
+    description: pick(project.description, safe),
+    image: project.image || undefined,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {

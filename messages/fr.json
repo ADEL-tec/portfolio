@@ -156,6 +156,22 @@
     "viewSource": "Voir le code source",
     "backToTop": "Retour en haut"
   },
+  "Chat": {
+    "openLabel": "Ouvrir le chat",
+    "closeLabel": "Fermer le chat",
+    "title": "Assistant du portfolio",
+    "subtitle": "Propulsé par Claude",
+    "welcome": "Bonjour ! Posez-moi n'importe quelle question sur les projets, compétences ou l'expérience d'Adel.",
+    "placeholder": "Écrivez un message…",
+    "send": "Envoyer",
+    "clear": "Effacer la conversation",
+    "download": "Télécharger la transcription",
+    "copy": "Copier la réponse",
+    "copied": "Copié",
+    "thinking": "Réflexion…",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "offline": "Le backend du chat n'est pas joignable depuis ce déploiement."
+  },
   "LanguageSwitcher": {
     "label": "Langue",
     "en": "English",
