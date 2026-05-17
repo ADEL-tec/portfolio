@@ -163,3 +163,50 @@ export const hoverLift = {
 
 /** Standard `whileInView` config — animate once when 20% is visible. */
 export const viewportOnce = { once: true, amount: 0.2 } as const;
+
+// ─── Exit-state variants ──────────────────────────────────────────────────
+//
+// Variants that also define an `exit` state for use with `<AnimatePresence>`.
+// Pair with the `initial`/`animate` pattern *or* with named-state driving:
+//   <motion.div variants={fadeInOut} initial="hidden" animate="visible" exit="exit" />
+
+export const fadeInOut: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: transitions.base },
+  exit: { opacity: 0, transition: transitions.fast },
+};
+
+export const scaleInOut: Variants = {
+  hidden: { opacity: 0, scale: 0.96 },
+  visible: { opacity: 1, scale: 1, transition: transitions.base },
+  exit: { opacity: 0, scale: 0.96, transition: transitions.fast },
+};
+
+/** Fade + small rotation. Use sparingly — pairs well with logo or badge. */
+export const rotateIn: Variants = {
+  hidden: { opacity: 0, rotate: -6, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    rotate: 0,
+    scale: 1,
+    transition: { ...transitions.base, type: "spring", stiffness: 240, damping: 22 },
+  },
+};
+
+// ─── Reduced-motion helper ────────────────────────────────────────────────
+
+/**
+ * Strip the motion off a variants object, leaving only the final `visible`
+ * state. Use when you've already detected `prefers-reduced-motion` and want
+ * to bypass the entrance animation:
+ *
+ *   const v = useReducedMotion() ? withReducedMotion(fadeUp) : fadeUp;
+ *
+ * Useful for top-level wrappers like `ScrollReveal` that decide per-mount.
+ */
+export function withReducedMotion(_variants: Variants): Variants {
+  return {
+    hidden: {},
+    visible: {},
+  };
+}

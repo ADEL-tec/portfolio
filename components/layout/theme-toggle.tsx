@@ -19,15 +19,20 @@ export function ThemeToggle() {
   const t = useTranslations("ThemeToggle");
 
   const isDark = resolvedTheme === "dark";
-  const label = isDark ? t("light") : t("dark");
+  // Both the icon AND the a11y label depend on resolvedTheme, which differs
+  // between server (default "light") and client (after localStorage + system
+  // pref). Before mount, render a neutral label so SSR + first client paint
+  // match — the specific value swaps in on the next render.
+  const nextLabel = isDark ? t("light") : t("dark");
+  const ariaLabel = mounted ? `${t("label")}: ${nextLabel}` : t("label");
 
   return (
     <Button
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      aria-label={`${t("label")}: ${label}`}
-      title={label}
+      aria-label={ariaLabel}
+      title={mounted ? nextLabel : undefined}
       className="relative"
     >
       <AnimatePresence mode="wait" initial={false}>
