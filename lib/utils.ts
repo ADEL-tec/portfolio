@@ -128,3 +128,21 @@ export function absoluteUrl(path: string): string {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
+
+/**
+ * Prepend the configured basePath to a public-asset URL.
+ *
+ * Required for image `src` and other static-asset paths in static export
+ * builds: `next/image` with `unoptimized: true` does NOT apply `basePath`
+ * to the rendered `<img src>`, so we have to do it ourselves.
+ *
+ * In dev (NEXT_PUBLIC_BASE_PATH unset), this is a no-op. External URLs
+ * (anything starting with `http`) are returned unchanged.
+ */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export function asset(path: string): string {
+  if (!path || /^https?:/.test(path)) return path;
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${BASE_PATH}${normalized}`;
+}

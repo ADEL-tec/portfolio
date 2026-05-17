@@ -42,6 +42,10 @@ jobs:
         env:
           STATIC_EXPORT: "1"
           NEXT_PUBLIC_SITE_URL: https://adel-tec.github.io/portfolio
+          # Embedded into the client bundle so `asset()` in lib/utils.ts can
+          # prepend the basePath to image src URLs. Required because
+          # next/image with `unoptimized: true` doesn't apply basePath itself.
+          NEXT_PUBLIC_BASE_PATH: /portfolio
 
       # GitHub Pages defaults to Jekyll, which strips `_next/` paths. The
       # marker file turns Jekyll off so the underscore folder gets served.

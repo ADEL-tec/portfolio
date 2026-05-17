@@ -22,6 +22,7 @@ import {
 import { ProjectCard } from "@/components/sections/project-card";
 import { routing } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
+import { asset } from "@/lib/utils";
 
 type PageProps = { params: Promise<{ locale: string; id: string }> };
 
@@ -288,7 +289,7 @@ function DetailImage({
       </div>
       {src && (
         <Image
-          src={src}
+          src={asset(src)}
           alt={title}
           fill
           sizes="(max-width: 1024px) 100vw, 1024px"

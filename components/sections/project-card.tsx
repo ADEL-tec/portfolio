@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 import { fadeUp, hoverLift } from "@/lib/animations";
 import { pick, pickList, type Locale, type Project } from "@/lib/data";
 
@@ -147,7 +147,7 @@ function ProjectImage({ src, title }: { src: string; title: string }) {
       </div>
       {src && (
         <Image
-          src={src}
+          src={asset(src)}
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

@@ -15,7 +15,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { portfolioData, pickList, type Locale } from "@/lib/data";
-import { downloadResume } from "@/lib/utils";
+import { asset, downloadResume } from "@/lib/utils";
 import { fadeUp, staggerContainer, transitions } from "@/lib/animations";
 import { useMediaQuery } from "@/lib/hooks";
 
@@ -184,7 +184,7 @@ export function Hero() {
           <div className="shadow-brand-900/20 relative h-full w-full overflow-hidden rounded-full border-4 border-background shadow-2xl ring-1 ring-border">
             {hasAvatar ? (
               <Image
-                src={portfolioData.personal.avatar}
+                src={asset(portfolioData.personal.avatar)}
                 alt={portfolioData.personal.fullName}
                 fill
                 priority
