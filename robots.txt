@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://adel-tec.github.io/portfolio
+Sitemap: https://adel-tec.github.io/portfolio/sitemap.xml
