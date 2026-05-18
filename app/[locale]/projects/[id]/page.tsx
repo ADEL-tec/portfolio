@@ -21,7 +21,12 @@ import {
 } from "@/lib/data";
 import { ProjectCard } from "@/components/sections/project-card";
 import { routing } from "@/i18n/routing";
-import { pageMetadata } from "@/lib/seo";
+import {
+  SITE_URL,
+  breadcrumbSchema,
+  pageMetadata,
+  projectSchema,
+} from "@/lib/seo";
 import { asset } from "@/lib/utils";
 
 type PageProps = { params: Promise<{ locale: string; id: string }> };
@@ -78,8 +83,27 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     .filter((p) => p.id !== project.id && p.category === project.category)
     .slice(0, 2);
 
+  const breadcrumb = breadcrumbSchema([
+    { name: "Home", url: `${SITE_URL}/${currentLocale}` },
+    { name: t("title"), url: `${SITE_URL}/${currentLocale}/projects` },
+    { name: title, url: `${SITE_URL}/${currentLocale}/projects/${project.id}` },
+  ]);
+
   return (
     <main className="mx-auto w-full max-w-5xl px-6 py-16">
+      {/* JSON-LD: SoftwareApplication for the project + BreadcrumbList for
+          navigation context. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectSchema(project, currentLocale)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+
       {/* ─── Back link ─────────────────────────────────────────── */}
       <Button asChild variant="ghost" size="sm" className="mb-8 -ms-2">
         <Link href="/projects">

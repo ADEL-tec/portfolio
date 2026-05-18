@@ -15,7 +15,7 @@ import { PageTransition } from "@/components/layout/page-transition";
 // public site doesn't surface it. Re-add `import { ChatWidget } from
 // "@/components/chat/widget"` and the `<ChatWidget />` line below to re-enable.
 import { NO_FLASH_SCRIPT } from "@/lib/theme";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, personSchema, websiteSchema } from "@/lib/seo";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
@@ -77,6 +77,20 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         {/* Runs before paint so the correct .dark class is on <html> — */}
         {/* prevents a light/dark flash on first load. */}
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
+        {/* JSON-LD: Person + WebSite. One script per @type so search engines
+            can parse them independently. Generated server-side at build. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema(locale as Locale)),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema(locale as Locale)),
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <div id="top" />
