@@ -5,5 +5,5 @@
 5:I[15289,["/portfolio/_next/static/chunks/0e2jcnngujjbs.js","/portfolio/_next/static/chunks/0zutjc26ro.z3.js","/portfolio/_next/static/chunks/0p29.23u.e-di.js","/portfolio/_next/static/chunks/0j5dqkp.m-vk6.js","/portfolio/_next/static/chunks/0637tqa4z3-en.js","/portfolio/_next/static/chunks/08j06r-gi2xb~.js"],"Skills"]
 6:I[97367,["/portfolio/_next/static/chunks/01xlw8hd842-c.js","/portfolio/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","$L3",null,{}],["$","$L4",null,{}],["$","$L5",null,{}]],[["$","script","script-0",{"src":"/portfolio/_next/static/chunks/08j06r-gi2xb~.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"knb1uCsgCGHS-PbABJ2WO"}
+0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","$L3",null,{}],["$","$L4",null,{}],["$","$L5",null,{}]],[["$","script","script-0",{"src":"/portfolio/_next/static/chunks/08j06r-gi2xb~.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"5Mev2yblRQ0pUdZRaCL4b"}
 8:null
