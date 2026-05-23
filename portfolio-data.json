@@ -24,27 +24,58 @@
     "primary": [
       {
         "category": "Mobile Development",
-        "skills": ["Flutter", "Dart", "iOS Development", "Android Development", "Cross-Platform Apps"],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "iOS Development",
+          "Android Development",
+          "Cross-Platform Apps"
+        ],
         "icon": "mobile",
         "description": "Expertise in building responsive, performant cross-platform mobile applications using Flutter with Material Design and Cupertino guidelines."
       },
       {
         "category": "Backend Development",
-        "skills": ["Node.js", "Express.js", "NestJS", "RESTful APIs", "Firebase", "GraphQL"],
+        "skills": [
+          "Node.js",
+          "Express.js",
+          "NestJS",
+          "RESTful APIs",
+          "Firebase",
+          "GraphQL"
+        ],
         "icon": "server",
         "description": "Strong backend development skills with modern frameworks, scalable API design, and real-time database management."
       },
       {
         "category": "Frontend Web Development",
-        "skills": ["JavaScript (ES6+)", "TypeScript", "React", "Responsive Design", "Material Design"],
+        "skills": [
+          "JavaScript (ES6+)",
+          "TypeScript",
+          "React",
+          "Responsive Design",
+          "Material Design"
+        ],
         "icon": "code",
         "description": "Professional frontend development with modern frameworks, accessibility standards, and performance optimization."
       }
     ],
     "databases": ["Firebase", "MongoDB", "PostgreSQL", "MySQL", "Supabase"],
-    "cloud": ["GCP", "AWS (S3, API Gateway, CloudWatch)", "Docker", "GitHub Actions"],
+    "cloud": [
+      "GCP",
+      "AWS (S3, API Gateway, CloudWatch)",
+      "Docker",
+      "GitHub Actions"
+    ],
     "tools": ["Git", "Postman", "Swagger", "VS Code", "Linux"],
-    "architecture": ["Clean Architecture", "MVC", "BLoC Pattern", "Provider State Management", "JWT Authentication", "RBAC"]
+    "architecture": [
+      "Clean Architecture",
+      "MVC",
+      "BLoC Pattern",
+      "Provider State Management",
+      "JWT Authentication",
+      "RBAC"
+    ]
   },
   "projects": [
     {
@@ -53,7 +84,14 @@
       "subtitle": "Location-based mobile service platform",
       "description": "Developed a comprehensive location-based mobile application enabling users to book professional car wash and auto services delivered directly to their location. The platform streamlines service scheduling, tracking, and payment processing while providing administrative tools for operational management.",
       "fullDescription": "AwashZ is a production-ready mobile application built with Flutter that revolutionizes how users access car wash and auto services. The app features real-time location tracking, service provider management, secure payment processing, and comprehensive admin dashboard. Implemented push notifications via FCM for appointment reminders and service updates.",
-      "technologies": ["Flutter", "Dart", "Firebase", "FCM (Push Notifications)", "REST API", "Google Maps API"],
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "FCM (Push Notifications)",
+        "REST API",
+        "Google Maps API"
+      ],
       "role": "Lead Mobile Developer",
       "duration": "3 months",
       "status": "Published",
@@ -78,7 +116,12 @@
         "github": ""
       },
       "category": "Mobile App",
-      "highlights": ["Production Ready", "Published on Play Store", "Real-time Services", "Payment Integration"],
+      "highlights": [
+        "Production Ready",
+        "Published on Play Store",
+        "Real-time Services",
+        "Payment Integration"
+      ],
       "testimonial": "High-performance app with smooth UX and reliable service delivery"
     },
     {
@@ -87,7 +130,13 @@
       "subtitle": "Professional salon services discovery platform",
       "description": "Developed a mobile application for discovering and booking salon and grooming services. Implemented real-time appointment scheduling with availability management and integrated secure payment options. Built features for service browsing, user reviews, and intelligent appointment reminders.",
       "fullDescription": "Glamix is a sophisticated salon and grooming services marketplace app. Users can discover nearby salons, browse services, check real-time availability, and book appointments seamlessly. The app includes a comprehensive review and rating system, push notification reminders, and integrated payment processing. Service providers have access to a dedicated dashboard for managing appointments and availability.",
-      "technologies": ["Flutter", "Dart", "Firebase", "REST API", "Payment Gateway Integration"],
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "REST API",
+        "Payment Gateway Integration"
+      ],
       "role": "Full-Stack Mobile Developer",
       "duration": "2.5 months",
       "status": "Published",
@@ -113,7 +162,12 @@
         "github": ""
       },
       "category": "Mobile App",
-      "highlights": ["Two-Sided Marketplace", "Real-time Updates", "Appointment System", "Published App"],
+      "highlights": [
+        "Two-Sided Marketplace",
+        "Real-time Updates",
+        "Appointment System",
+        "Published App"
+      ],
       "testimonial": "Intuitive interface with powerful booking management features"
     },
     {
@@ -122,15 +176,25 @@
       "subtitle": "Smart discount aggregation and digital membership system",
       "description": "Developed a discount aggregation platform allowing users to discover offers from nearby businesses and redeem them using QR code and barcode-based digital membership. Implemented real-time data synchronization using Firebase with user activity tracking.",
       "fullDescription": "Discount Plus is an innovative mobile platform that bridges the gap between businesses and consumers. Users discover and redeem exclusive offers from nearby merchants using digital membership cards and barcode scanning. The platform features real-time offer synchronization, comprehensive activity tracking, savings insights, and secure authentication. Businesses benefit from detailed analytics and customer engagement tools.",
-      "technologies": ["Flutter", "Dart", "Firebase (Real-time Database)", "REST API", "QR/Barcode Scanning"],
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase (Real-time Database)",
+        "REST API",
+        "QR/Barcode Scanning"
+      ],
       "role": "Lead Mobile Developer",
       "duration": "2 months",
       "status": "Published",
       "image": "/images/projects/discount-plus.jpg",
       "images": [
-        "/images/projects/discount-plus-1.jpg",
-        "/images/projects/discount-plus-2.jpg",
-        "/images/projects/discount-plus-3.jpg"
+        "/images/projects/discount-plus-1.png",
+        "/images/projects/discount-plus-2.png",
+        "/images/projects/discount-plus-3.png",
+        "/images/projects/discount-plus-4.png",
+        "/images/projects/discount-plus-5.png",
+        "/images/projects/discount-plus-6.png",
+        "/images/projects/discount-plus-7.png"
       ],
       "features": [
         "Real-time offer discovery and synchronization",
@@ -148,7 +212,12 @@
         "github": ""
       },
       "category": "Mobile App",
-      "highlights": ["Cross-Platform (iOS & Android)", "Real-time Sync", "QR Code Integration", "Dual App Stores"],
+      "highlights": [
+        "Cross-Platform (iOS & Android)",
+        "Real-time Sync",
+        "QR Code Integration",
+        "Dual App Stores"
+      ],
       "testimonial": "Seamless user experience with powerful real-time data synchronization"
     }
   ],
@@ -160,8 +229,16 @@
           { "name": "Flutter", "level": "Expert", "percentage": 95 },
           { "name": "Dart", "level": "Expert", "percentage": 95 },
           { "name": "iOS Development", "level": "Advanced", "percentage": 85 },
-          { "name": "Android Development", "level": "Advanced", "percentage": 85 },
-          { "name": "Provider State Management", "level": "Expert", "percentage": 90 },
+          {
+            "name": "Android Development",
+            "level": "Advanced",
+            "percentage": 85
+          },
+          {
+            "name": "Provider State Management",
+            "level": "Expert",
+            "percentage": 90
+          },
           { "name": "BLoC Pattern", "level": "Advanced", "percentage": 85 }
         ]
       },
@@ -179,7 +256,11 @@
       "frontend": {
         "title": "Frontend Web Development",
         "items": [
-          { "name": "JavaScript (ES6+)", "level": "Advanced", "percentage": 85 },
+          {
+            "name": "JavaScript (ES6+)",
+            "level": "Advanced",
+            "percentage": 85
+          },
           { "name": "TypeScript", "level": "Advanced", "percentage": 80 },
           { "name": "React", "level": "Advanced", "percentage": 80 },
           { "name": "Responsive Design", "level": "Expert", "percentage": 90 },
@@ -254,7 +335,14 @@
         "Optimize application performance",
         "Collaborate with team using Git for version control"
       ],
-      "technologies": ["Flutter", "Dart", "Firebase", "Provider", "BLoC", "REST API"]
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Provider",
+        "BLoC",
+        "REST API"
+      ]
     },
     {
       "id": 2,
@@ -275,7 +363,14 @@
         "Collaborate with cross-functional teams",
         "Version control and task tracking with Git"
       ],
-      "technologies": ["Flutter", "Dart", "Firebase", "Provider", "BLoC", "Material Design"]
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Provider",
+        "BLoC",
+        "Material Design"
+      ]
     },
     {
       "id": 3,
@@ -333,7 +428,14 @@
         "Application deployment and DevOps",
         "Published and maintained apps on Google Play and App Store"
       ],
-      "technologies": ["Flutter", "Node.js", "React", "MongoDB", "Firebase", "AWS"]
+      "technologies": [
+        "Flutter",
+        "Node.js",
+        "React",
+        "MongoDB",
+        "Firebase",
+        "AWS"
+      ]
     }
   ],
   "education": [
@@ -432,11 +534,27 @@
     "version": "1.0.0",
     "lastUpdated": "2025-06-16",
     "theme": "modern-dark",
-    "sections": ["home", "about", "expertise", "projects", "experience", "skills", "education", "contact"],
+    "sections": [
+      "home",
+      "about",
+      "expertise",
+      "projects",
+      "experience",
+      "skills",
+      "education",
+      "contact"
+    ],
     "seo": {
       "title": "Adel Labdelli Merioua - Full-Stack Developer & Flutter Expert",
       "description": "Portfolio of Adel Labdelli Merioua - 5+ years of experience in mobile development, web design, and full-stack engineering. Flutter specialist with published apps.",
-      "keywords": ["Flutter Developer", "Mobile App Development", "Full-Stack Developer", "Web Developer", "UI Designer", "Doha Qatar"]
+      "keywords": [
+        "Flutter Developer",
+        "Mobile App Development",
+        "Full-Stack Developer",
+        "Web Developer",
+        "UI Designer",
+        "Doha Qatar"
+      ]
     }
   }
 }
