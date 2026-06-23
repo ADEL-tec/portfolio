@@ -63,15 +63,22 @@ const nextConfig: NextConfig = {
           source: "/(.*)",
           headers: securityHeaders,
         },
-        {
-          source: "/_next/static/(.*)",
-          headers: [
-            {
-              key: "Cache-Control",
-              value: "public, max-age=31536000, immutable",
-            },
-          ],
-        },
+        // Immutable caching for content-hashed build assets — production only.
+        // `next dev` rebuilds these on every change, so an immutable
+        // Cache-Control breaks HMR (Next.js warns about exactly this in dev).
+        ...(process.env.NODE_ENV === "production"
+          ? [
+              {
+                source: "/_next/static/(.*)",
+                headers: [
+                  {
+                    key: "Cache-Control",
+                    value: "public, max-age=31536000, immutable",
+                  },
+                ],
+              },
+            ]
+          : []),
       ];
     },
   }),

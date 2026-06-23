@@ -45,14 +45,14 @@ export function ProjectCard({
       ? t("status.inProgress")
       : t(`status.${project.status}`);
 
-  const Wrapper = asMotionItem ? motion.article : "article";
-  const motionProps = asMotionItem
-    ? { variants: fadeUp, ...hoverLift }
-    : (hoverLift as Record<string, unknown>);
-
+  // Always a motion element so `whileHover`/`whileTap` are valid props. When
+  // not driven as a stagger item, we simply omit the entrance `variants` (the
+  // card renders in its resting state and still lifts on hover).
   return (
-    <Wrapper
-      {...motionProps}
+    <motion.article
+      variants={asMotionItem ? fadeUp : undefined}
+      whileHover={hoverLift.whileHover}
+      whileTap={hoverLift.whileTap}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/5"
     >
       {/* ─── Image header ────────────────────────────────────────── */}
@@ -125,7 +125,7 @@ export function ProjectCard({
           <ProjectLinks project={project} t={t} />
         </div>
       </div>
-    </Wrapper>
+    </motion.article>
   );
 }
 

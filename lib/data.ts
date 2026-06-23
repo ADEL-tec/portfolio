@@ -346,11 +346,9 @@ const projects: readonly Project[] = [
     },
     duration: { en: "3 months", fr: "3 mois", ar: "3 أشهر" },
     image: "/images/projects/awashz.jpg",
-    images: [
-      "/images/projects/awashz-1.jpg",
-      "/images/projects/awashz-2.jpg",
-      "/images/projects/awashz-3.jpg",
-    ],
+    // Add screenshots to `public/images/projects/` (e.g. awashz-1.jpg …) and
+    // list them here to populate the gallery on the project detail page.
+    images: [],
     links: {
       playStore: "https://play.google.com/store/apps/details?id=com.fiveline.awaashz",
     },
@@ -431,11 +429,9 @@ const projects: readonly Project[] = [
     },
     duration: { en: "2.5 months", fr: "2,5 mois", ar: "شهران ونصف" },
     image: "/images/projects/glamix.jpg",
-    images: [
-      "/images/projects/glamix-1.jpg",
-      "/images/projects/glamix-2.jpg",
-      "/images/projects/glamix-3.jpg",
-    ],
+    // Add screenshots to `public/images/projects/` (e.g. glamix-1.jpg …) and
+    // list them here to populate the gallery on the project detail page.
+    images: [],
     links: {
       playStore: "https://play.google.com/store/apps/details?id=com.fiveline.glamix",
     },
@@ -517,9 +513,13 @@ const projects: readonly Project[] = [
     duration: { en: "2 months", fr: "2 mois", ar: "شهران" },
     image: "/images/projects/discount-plus.jpg",
     images: [
-      "/images/projects/discount-plus-1.jpg",
-      "/images/projects/discount-plus-2.jpg",
-      "/images/projects/discount-plus-3.jpg",
+      "/images/projects/discount-plus-1.png",
+      "/images/projects/discount-plus-2.png",
+      "/images/projects/discount-plus-3.png",
+      "/images/projects/discount-plus-4.png",
+      "/images/projects/discount-plus-5.png",
+      "/images/projects/discount-plus-6.png",
+      "/images/projects/discount-plus-7.png",
     ],
     links: {
       playStore: "https://play.google.com/store/apps/details?id=com.fiveline.discountplus",

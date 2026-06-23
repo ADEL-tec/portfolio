@@ -20,6 +20,7 @@ import {
   type Locale,
 } from "@/lib/data";
 import { ProjectCard } from "@/components/sections/project-card";
+import { ProjectGallery } from "@/components/sections/project-gallery";
 import { routing } from "@/i18n/routing";
 import {
   SITE_URL,
@@ -214,6 +215,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <DetailLinks project={project} t={t} />
         </aside>
       </div>
+
+      {/* ─── Screenshots gallery ───────────────────────────────── */}
+      {project.images.length > 0 && (
+        <ProjectGallery
+          images={project.images}
+          heading={t("screenshots")}
+          title={title}
+        />
+      )}
 
       {/* ─── Related ───────────────────────────────────────────── */}
       {related.length > 0 && (

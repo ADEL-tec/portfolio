@@ -69,6 +69,10 @@ export function pageMetadata({
   const url = `${SITE_URL}${localePath}`;
 
   return {
+    // Resolves relative OG/Twitter image paths to absolute URLs (and silences
+    // Next.js's "metadataBase is not set" warning). SITE_URL already includes
+    // the GitHub Pages basePath, so social images resolve correctly in prod.
+    metadataBase: new URL(SITE_URL),
     title: resolvedTitle,
     description: resolvedDescription,
     keywords: [...portfolioData.seo.keywords],
