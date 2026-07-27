@@ -1,53 +1,54 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Boxes,
+  Cloud,
+  Code2,
+  Database,
+  Server,
+  Smartphone,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/lib/animations";
+import { TickFrame } from "@/components/ui/tick-frame";
+import { SectionHeading } from "./section-heading";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import {
   portfolioData,
   pick,
   type Locale,
-  type SkillCategory as SkillCategoryKey,
+  type SkillCategory,
+  type SkillGroup,
 } from "@/lib/data";
-import { SkillCategory } from "./skill-category";
 
-type FilterKey = SkillCategoryKey | "all";
+/** One glyph per category — the only decoration each cell gets. */
+const CATEGORY_ICON: Record<SkillCategory, LucideIcon> = {
+  mobile: Smartphone,
+  backend: Server,
+  frontend: Code2,
+  databases: Database,
+  cloud: Cloud,
+  tools: Wrench,
+  architecture: Boxes,
+};
 
 /**
- * Skills section. Renders the full skill matrix grouped by category, with
- * an optional filter bar to focus on one category at a time.
+ * Skills matrix — one ruled table rather than a set of floating cards.
  *
- * Animation budget:
- *   • The whole section fades up once when it enters the viewport
- *   • Each category card staggers in via `staggerContainer`
- *   • Inside each card, progress bars animate from 0 → target (in SkillItem)
+ * Cells draw only their own inline-end and block-end edges and the container
+ * draws the two outside ones, so neighbours share a single hairline and the
+ * grid reads as one object however the columns reflow.
  *
- * Layout: 1 column on mobile, 2 on tablet, 3 on desktop. Keeps card width
- * comfortable for the small text inside without empty wrapping at xl.
+ * Proficiency shows as a word beside each item rather than a progress bar:
+ * these are self-assessed, and a bar implies a precision they don't have.
  */
 export function Skills() {
   const t = useTranslations("Skills");
   const locale = useLocale() as Locale;
   const groups = portfolioData.skills;
-
-  const [filter, setFilter] = useState<FilterKey>("all");
-
-  const visible = useMemo(
-    () =>
-      filter === "all" ? groups : groups.filter((g) => g.category === filter),
-    [groups, filter],
-  );
-
-  // Only surface the filter bar when there's enough variety to benefit.
-  const showFilters = groups.length > 3;
 
   return (
     <motion.section
@@ -57,88 +58,57 @@ export function Skills() {
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerContainer(0.08, 0.05)}
-      className="relative mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24"
+      className="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
-      <header className="mb-10 flex flex-col gap-3">
-        <motion.p
-          variants={fadeUp}
-          className="text-sm font-medium uppercase tracking-wider text-brand-600 dark:text-brand-400"
-        >
-          {t("title")}
-        </motion.p>
-        <motion.h2
-          id="skills-heading"
-          variants={fadeUp}
-          className="text-section font-bold tracking-tight text-foreground"
-        >
-          {t("subtitle")}
-        </motion.h2>
-      </header>
+      <SectionHeading
+        id="skills-heading"
+        eyebrow={t("title")}
+        heading={t("subtitle")}
+        headingClassName="max-w-160"
+        className="mb-10"
+      />
 
-      {/* ─── Filter bar ──────────────────────────────────────────── */}
-      {showFilters && (
-        <motion.div
-          variants={fadeUp}
-          role="tablist"
-          aria-label={t("title")}
-          className="mb-8 flex flex-wrap gap-2"
-        >
-          <FilterButton
-            label={pick(
-              { en: "All", fr: "Tout", ar: "الكل" },
-              locale,
-            )}
-            active={filter === "all"}
-            onClick={() => setFilter("all")}
-          />
-          {groups.map((g) => (
-            <FilterButton
-              key={g.category}
-              label={pick(g.title, locale)}
-              active={filter === g.category}
-              onClick={() => setFilter(g.category)}
-            />
-          ))}
-        </motion.div>
-      )}
-
-      {/* ─── Grid ────────────────────────────────────────────────── */}
       <motion.div
-        layout
-        className={cn(
-          "grid gap-6",
-          "sm:grid-cols-2 lg:grid-cols-3",
-        )}
+        variants={fadeUp}
+        className="relative grid border-s border-t border-border sm:grid-cols-2 lg:grid-cols-3"
       >
-        {visible.map((group) => (
-          <SkillCategory
-            key={group.category}
-            group={group}
-            locale={locale}
-          />
+        <TickFrame />
+        {groups.map((group) => (
+          <SkillCell key={group.category} group={group} locale={locale} />
         ))}
       </motion.div>
     </motion.section>
   );
 }
 
-interface FilterButtonProps {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}
+function SkillCell({ group, locale }: { group: SkillGroup; locale: Locale }) {
+  const Icon = CATEGORY_ICON[group.category];
 
-function FilterButton({ label, active, onClick }: FilterButtonProps) {
   return (
-    <Button
-      role="tab"
-      aria-selected={active}
-      variant={active ? "default" : "outline"}
-      size="sm"
-      onClick={onClick}
-      className="rounded-full"
-    >
-      {label}
-    </Button>
+    <div className="border-b border-e border-border px-6 py-7">
+      <Icon
+        className="mb-3.5 size-5 text-brand-500 dark:text-brand-400"
+        aria-hidden="true"
+      />
+      <h3 className="mb-2.5 font-heading text-[1.0625rem] font-semibold text-foreground">
+        {pick(group.title, locale)}
+      </h3>
+      <ul className="flex flex-col gap-1 text-sm text-muted-foreground">
+        {group.items.map((item) => {
+          const name = typeof item === "string" ? item : item.name;
+          const level = typeof item === "string" ? null : item.level;
+          return (
+            <li key={name} className="flex items-baseline justify-between gap-3">
+              <span>{name}</span>
+              {level && (
+                <span className="shrink-0 text-[0.625rem] uppercase tracking-[0.06em] text-foreground/35">
+                  {level}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

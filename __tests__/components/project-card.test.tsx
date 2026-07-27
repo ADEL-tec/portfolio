@@ -38,6 +38,12 @@ const project: Project = {
     fr: [],
     ar: [],
   },
+  monogram: "AW",
+  metric: {
+    en: "Published on Google Play",
+    fr: "Publié sur Google Play",
+    ar: "منشور على Google Play",
+  },
   technologies: ["Flutter", "Dart", "Firebase", "FCM", "Maps", "REST"],
   role: { en: "Lead", fr: "Lead", ar: "قائد" },
   duration: { en: "3 months", fr: "3 mois", ar: "3 أشهر" },
@@ -61,12 +67,12 @@ describe("ProjectCard", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows the first 5 technologies plus a +N overflow chip", () => {
+  it("shows the first 4 technologies plus a +N overflow chip", () => {
     render(<ProjectCard project={project} locale="en" />);
-    // 6 technologies in the fixture → first 5 visible + "+1" chip
+    // 6 technologies in the fixture → first 4 visible + "+2" chip
     expect(screen.getByText("Flutter")).toBeInTheDocument();
     expect(screen.getByText("Dart")).toBeInTheDocument();
-    expect(screen.getByText("+1")).toBeInTheDocument();
+    expect(screen.getByText("+2")).toBeInTheDocument();
   });
 
   it("renders one external link per non-empty link", () => {
@@ -97,7 +103,7 @@ describe("ProjectCard", () => {
     expect(screen.getByText("status.published")).toBeInTheDocument();
   });
 
-  it("hides the +N chip when 5 or fewer techs", () => {
+  it("hides the +N chip when 4 or fewer techs", () => {
     const small = {
       ...project,
       technologies: ["Flutter", "Dart", "Firebase"],

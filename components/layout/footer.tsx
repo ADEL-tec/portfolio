@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowUp, Mail } from "lucide-react";
-import { GithubMark, LinkedinMark } from "@/components/ui/brand-icons";
+import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/button";
+import { GithubMark, LinkedinMark } from "@/components/ui/brand-icons";
 import { Link } from "@/i18n/navigation";
 import { portfolioData, pick, type Locale } from "@/lib/data";
 import { scrollToSection } from "@/lib/utils";
@@ -13,14 +12,13 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { NAV_ITEMS } from "./nav-config";
 
 /**
- * Site footer. Three-column grid on desktop, single column on mobile:
- *   1. Brand + tagline
+ * Site footer. Three columns on desktop, stacked on mobile:
+ *   1. Name + what I do
  *   2. Quick links (mirrors the header nav)
  *   3. Social profiles
  *
- * The bottom bar holds copyright, tech credit, and a back-to-top button.
- * All copy is locale-aware: nav labels via next-intl, brand title via the
- * `Localized` field in `portfolioData.personal.title`.
+ * Separated from the page by a single rule rather than a filled band — the
+ * footer is the end of the document, not a different surface.
  */
 export function Footer() {
   const tNav = useTranslations("Nav");
@@ -36,19 +34,19 @@ export function Footer() {
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerContainer(0.06)}
-      className="mt-24 border-t border-border bg-background"
+      className="mt-8 border-t border-border"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-12">
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
-          <motion.div variants={fadeUp} className="flex flex-col gap-3">
+          <motion.div variants={fadeUp} className="flex flex-col gap-2.5">
             <Link
               href="/"
-              className="text-lg font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity"
+              className="font-heading text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
             >
               {portfolioData.personal.fullName}
             </Link>
-            <p className="text-sm text-muted-foreground max-w-xs">{title}</p>
+            <p className="max-w-xs text-sm text-muted-foreground">{title}</p>
             <p className="text-sm text-muted-foreground">{tFoot("tagline")}</p>
           </motion.div>
 
@@ -58,15 +56,15 @@ export function Footer() {
             aria-label="Footer"
             className="flex flex-col gap-3"
           >
-            <h2 className="text-sm font-semibold text-foreground">
-              {tNav("home")} · {tNav("projects")}
+            <h2 className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
+              {tNav("home")}
             </h2>
             <ul className="flex flex-col gap-2 text-sm">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-foreground transition-colors hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     {tNav(item.labelKey)}
                   </Link>
@@ -77,7 +75,7 @@ export function Footer() {
 
           {/* Social */}
           <motion.div variants={fadeUp} className="flex flex-col gap-3">
-            <h2 className="text-sm font-semibold text-foreground">
+            <h2 className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
               {pick(
                 {
                   en: "Find me online",
@@ -109,21 +107,18 @@ export function Footer() {
 
         <motion.div
           variants={fadeUp}
-          className="mt-10 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-border pt-6"
+          className="mt-10 flex flex-col-reverse gap-3 border-t border-border pt-6 text-[0.8125rem] text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
         >
-          <p className="text-xs text-muted-foreground">
-            {tFoot("rights", { year })}
-          </p>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <p>{tFoot("rights", { year })}</p>
+          <div className="flex items-center gap-4">
             <span>{tFoot("builtWith")}</span>
-            <Button
-              variant="ghost"
-              size="icon-sm"
+            <button
+              type="button"
               onClick={() => scrollToSection("top")}
-              aria-label={tFoot("backToTop")}
+              className="transition-colors hover:text-brand-600 dark:hover:text-brand-400"
             >
-              <ArrowUp className="size-4" aria-hidden="true" />
-            </Button>
+              {tFoot("backToTop")} ↑
+            </button>
           </div>
         </motion.div>
       </div>
@@ -147,7 +142,7 @@ function FooterLink({
         href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-brand-600 dark:hover:text-brand-400"
       >
         {icon}
         <span>{label}</span>

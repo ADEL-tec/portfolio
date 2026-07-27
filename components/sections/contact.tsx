@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
+import { TickFrame } from "@/components/ui/tick-frame";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
+import { SectionHeading } from "./section-heading";
 import { ContactForm } from "./contact-form";
 import { ContactMethods } from "./contact-methods";
 
@@ -23,29 +25,22 @@ export function Contact() {
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerContainer(0.08, 0.05)}
-      className="relative mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24"
+      className="relative mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
-      <header className="mb-12 flex flex-col gap-3 text-center">
-        <motion.p
-          variants={fadeUp}
-          className="text-sm font-medium uppercase tracking-wider text-brand-600 dark:text-brand-400"
-        >
-          {t("title")}
-        </motion.p>
-        <motion.h2
-          id="contact-heading"
-          variants={fadeUp}
-          className="text-section font-bold tracking-tight text-foreground"
-        >
-          {t("subtitle")}
-        </motion.h2>
-      </header>
+      <SectionHeading
+        id="contact-heading"
+        eyebrow={t("title")}
+        heading={t("subtitle")}
+        headingClassName="max-w-160"
+        className="mb-11"
+      />
 
       <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
         <motion.div
           variants={fadeUp}
-          className="order-2 lg:order-1 rounded-3xl border border-border bg-card/50 p-6 sm:p-8"
+          className="relative order-2 border border-border p-6 sm:p-8 lg:order-1"
         >
+          <TickFrame />
           <ContactForm />
         </motion.div>
 

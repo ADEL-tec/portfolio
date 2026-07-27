@@ -38,5 +38,6 @@ export default async function ProjectsPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <Projects />;
+  // No "view all" link here — this is the page it would point to.
+  return <Projects showAllLink={false} />;
 }

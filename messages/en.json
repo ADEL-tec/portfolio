@@ -22,7 +22,15 @@
     "ctaPrimary": "View my work",
     "ctaSecondary": "Get in touch",
     "availability": "Available for new opportunities",
-    "basedIn": "Based in Doha, Qatar"
+    "basedIn": "Based in Doha, Qatar",
+    "eyebrow": "Mobile App Development",
+    "emailMe": "Email me",
+    "stats": {
+      "years": "Years shipping",
+      "apps": "Published apps",
+      "stores": "App stores",
+      "tech": "Technologies"
+    }
   },
   "About": {
     "title": "About me",
@@ -78,7 +86,8 @@
         "fullDescription": "Discount Plus is a cross-platform Flutter app delivering location-based deals, a digital points wallet, and a merchant-facing portal for issuing and redeeming coupons. Built on Firebase with secure auth and real-time deal updates.",
         "highlights": "Geo-aware deals · Points wallet · Merchant portal · Firebase backend"
       }
-    }
+    },
+    "viewAll": "View all projects"
   },
   "Skills": {
     "title": "Skills & expertise",

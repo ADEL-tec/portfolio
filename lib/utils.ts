@@ -1,10 +1,30 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
 
 import type { Locale } from "@/i18n/routing";
 import type { Localized } from "@/lib/data";
 
 // ─── Class names ───────────────────────────────────────────────────────────
+
+/**
+ * Our custom font sizes from `@theme` in `globals.css`. They have to be
+ * declared here too: tailwind-merge only recognises the built-in scale
+ * (`text-sm`, `text-2xl`, …), so a bare name like `text-section` falls
+ * through to the *text-colour* group. That made `cn("text-section",
+ * "text-foreground")` resolve to just `text-foreground` — the size was
+ * dropped with no warning, and headings silently rendered at body size.
+ *
+ * Add any new `--text-*` token here at the same time you add it to the theme.
+ */
+const CUSTOM_FONT_SIZES = ["display", "hero", "section", "eyebrow"] as const;
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [{ text: [...CUSTOM_FONT_SIZES] }],
+    },
+  },
+});
 
 /**
  * Compose className strings, deduping Tailwind utilities so later classes
@@ -103,6 +123,10 @@ export async function copyToClipboard(text: string): Promise<boolean> {
  * Trigger a download of the resume PDF. Defaults to `/resume.pdf` (place
  * the file under `public/`) but accepts an override for hosted URLs.
  *
+ * The path goes through `asset()` so it still resolves under a `basePath`
+ * deployment — without it, a static export served from `/portfolio` would
+ * request `/resume.pdf` at the domain root and 404.
+ *
  * Uses the standard anchor-trick rather than `window.open` so the browser
  * treats it as a download even when the server doesn't send
  * `Content-Disposition: attachment`.
@@ -113,7 +137,7 @@ export function downloadResume(
 ): void {
   if (typeof document === "undefined") return;
   const a = document.createElement("a");
-  a.href = url;
+  a.href = asset(url);
   a.download = filename;
   a.rel = "noopener";
   document.body.appendChild(a);

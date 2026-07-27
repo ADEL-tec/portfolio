@@ -99,6 +99,19 @@ export interface Project {
   /** Pull-quote / soundbite from a stakeholder. */
   testimonial?: Localized;
 
+  /**
+   * Two-letter tile shown beside the project title on the listing rows.
+   * Kept explicit rather than derived from the title so multi-word names
+   * ("Discount Plus" → DP) don't collide with each other.
+   */
+  monogram: string;
+  /**
+   * One-line status shown under the description on the listing rows.
+   * Verifiable facts only — where it shipped, what role, what shape of
+   * system. Never invented download counts or ratings.
+   */
+  metric: Localized;
+
   /** Tech stack tokens (brand names — not translated). */
   technologies: readonly string[];
   /** Translated role title (e.g. "Lead Mobile Developer"). */
@@ -196,6 +209,18 @@ export interface PersonalInfo {
   avatar: string;
   backgroundImage: string;
   resumeUrl?: string;
+
+  /** Current hiring status, shown in the contact card. */
+  availability: Localized;
+  /** Short capability pills under the About copy. */
+  focusAreas: LocalizedList;
+  /** Statement line for the full-bleed band between Skills and Experience. */
+  statement: Localized;
+  /**
+   * Portrait screenshots for the hero's floating devices, ordered
+   * left → centre → right. Needs true phone-aspect images.
+   */
+  heroScreens: readonly string[];
 }
 
 export interface SocialLinks {
@@ -268,6 +293,43 @@ const personal: PersonalInfo = {
   yearsExperience: 5,
   avatar: "/images/avatar.jpg",
   backgroundImage: "/images/hero-bg.jpg",
+  availability: {
+    en: "Open to opportunities",
+    fr: "Ouvert aux opportunités",
+    ar: "متاح للفرص",
+  },
+  focusAreas: {
+    en: [
+      "Clean Architecture",
+      "App Store & Play Store launches",
+      "Real-time data sync",
+      "Design-system minded",
+    ],
+    fr: [
+      "Architecture propre",
+      "Publications App Store & Play Store",
+      "Synchronisation en temps réel",
+      "Sensible aux design systems",
+    ],
+    ar: [
+      "معمارية نظيفة",
+      "النشر على App Store و Play Store",
+      "مزامنة البيانات الفوريّة",
+      "اهتمام بأنظمة التصميم",
+    ],
+  },
+  statement: {
+    en: "Five years, three published apps, two app stores — and a codebase I'd hand to the next developer without an apology.",
+    fr: "Cinq ans, trois applications publiées, deux app stores — et un code que je transmettrais au prochain développeur sans m'excuser.",
+    ar: "خمس سنوات، ثلاثة تطبيقات منشورة، متجرَان — وشيفرة أسلّمها للمطوّر التالي دون اعتذار.",
+  },
+  // Real Discount Plus captures (1320×2868) — the only true phone-aspect
+  // screenshots on disk today. Swap per-app once the others are exported.
+  heroScreens: [
+    "/images/projects/discount-plus-2.png",
+    "/images/projects/discount-plus-1.png",
+    "/images/projects/discount-plus-3.png",
+  ],
 };
 
 // ─── Projects ──────────────────────────────────────────────────────────────
@@ -337,6 +399,12 @@ const projects: readonly Project[] = [
       en: "High-performance app with smooth UX and reliable service delivery.",
       fr: "Application performante, expérience utilisateur fluide et livraison de service fiable.",
       ar: "تطبيق عالي الأداء بتجربة استخدام سلسة وتوصيل خدمة موثوق.",
+    },
+    monogram: "AW",
+    metric: {
+      en: "Published on Google Play · Lead Mobile Developer",
+      fr: "Publié sur Google Play · Développeur mobile principal",
+      ar: "منشور على Google Play · مطوّر موبايل رئيسي",
     },
     technologies: ["Flutter", "Dart", "Firebase", "FCM", "REST API", "Google Maps API"],
     role: {
@@ -421,6 +489,12 @@ const projects: readonly Project[] = [
       fr: "Interface intuitive avec des fonctionnalités de gestion de réservation puissantes.",
       ar: "واجهة بديهية مع ميزات قوية لإدارة الحجوزات.",
     },
+    monogram: "GX",
+    metric: {
+      en: "Published on Google Play · Two-sided marketplace",
+      fr: "Publié sur Google Play · Marketplace bilatérale",
+      ar: "منشور على Google Play · سوق ذو طرفين",
+    },
     technologies: ["Flutter", "Dart", "Firebase", "REST API", "Payment Gateway"],
     role: {
       en: "Full-Stack Mobile Developer",
@@ -503,6 +577,12 @@ const projects: readonly Project[] = [
       en: "Seamless user experience with powerful real-time data synchronization.",
       fr: "Expérience utilisateur fluide avec une synchronisation des données en temps réel performante.",
       ar: "تجربة استخدام سلسة مع مزامنة بيانات فوريّة قوية.",
+    },
+    monogram: "D+",
+    metric: {
+      en: "Published on the App Store & Google Play · Lead Mobile Developer",
+      fr: "Publié sur l'App Store & Google Play · Développeur mobile principal",
+      ar: "منشور على App Store و Google Play · مطوّر موبايل رئيسي",
     },
     technologies: ["Flutter", "Dart", "Firebase Realtime Database", "REST API", "QR/Barcode Scanning"],
     role: {
