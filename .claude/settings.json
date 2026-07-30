@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.ai)",
+      "Bash(awk '{ print NR\": \"length\\($0\\) }' \"Adel Merioua Labdelli - Portfolio.html\")",
+      "Bash(sort -t: -k2 -rn)",
+      "Bash(node -e \"const m=require\\('./messages/en.json'\\);console.log\\(JSON.stringify\\(Object.fromEntries\\(Object.entries\\(m\\).map\\(\\([k,v]\\)=>[k,typeof v==='object'?Object.keys\\(v\\):v]\\)\\),null,1\\)\\)\")",
+      "Bash(sips -g pixelWidth -g pixelHeight public/images/projects/discount-plus-1.png public/images/projects/awashz.jpg public/images/avatar.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/images/projects/*.jpg public/images/projects/*.png)",
+      "Bash(node -e \"const m=require\\('./messages/en.json'\\); console.log\\(JSON.stringify\\({Hero:m.Hero,About:m.About,Contact:m.Contact,Footer:m.Footer,Projects:{title:m.Projects.title,subtitle:m.Projects.subtitle,viewProject:m.Projects.viewProject,playStore:m.Projects.playStore,appStore:m.Projects.appStore},Skills:{title:m.Skills.title,subtitle:m.Skills.subtitle},Experience:{title:m.Experience.title,subtitle:m.Experience.subtitle,current:m.Experience.current}},null,1\\)\\)\")",
+      "Bash(perl -pi -e 's/min-w-\\\\[280px\\\\]/min-w-70/g; s/max-w-\\\\[35rem\\\\]/max-w-140/g; s/max-w-\\\\[37\\\\.5rem\\\\]/max-w-150/g; s/flex-\\\\[1_1_26rem\\\\]/flex-[1_1_26rem]/g; s/max-w-\\\\[20rem\\\\]/max-w-80/g;' components/sections/about.tsx)",
+      "Bash(perl -pi -e 's/min-w-\\\\[300px\\\\]/min-w-75/g; s/flex-\\\\[1_1_460px\\\\]/flex-[1_1_28.75rem]/g; s/max-w-\\\\[32rem\\\\]/max-w-128/g; s/max-w-\\\\[35rem\\\\]/max-w-140/g; s/min-w-\\\\[280px\\\\]/min-w-70/g; s/flex-\\\\[1_1_380px\\\\]/flex-[1_1_23.75rem]/g; s/h-\\\\[500px\\\\]/h-125/g;' components/sections/hero.tsx)",
+      "Bash(node -e ' *)",
+      "Bash(perl -pi -e 's/-inset-x-\\\\[5%\\\\]/inset-x-[-5%]/; s/-top-\\\\[10%\\\\]/top-[-10%]/; s/-bottom-\\\\[5%\\\\]/bottom-[-5%]/; s/start-1\\\\/2 -translate-x-1\\\\/2/inset-s-1\\\\/2 -translate-x-1\\\\/2/;' components/sections/hero.tsx)",
+      "Bash(lsof -ti:3000 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(timeout 90 bash -c 'until curl -sf http://localhost:3000/en >/dev/null; do sleep 1; done')",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code}\\\\n\" http://localhost:3000/en)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=12000 --window-size=1440,2400 --screenshot=home-light.png \"http://localhost:3000/en\")",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(cp __TRACKED_VAR__/probe.html .)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --force-prefers-color-scheme=light --virtual-time-budget=2000 --window-size=600,150 --screenshot=probe-light.png file://__TRACKED_VAR__/probe.html)",
+      "Bash(node shot.mjs \"http://localhost:3000/en\" light home-light.png 1440 2600)",
+      "Bash(node shot.mjs \"http://localhost:3000/en\" light home-light.png 1440 1200)",
+      "Bash(sips -g pixelHeight home-light.png)",
+      "Bash(sips --cropOffset 0 0 --crop 2900 1440 home-light.png --out light-top.png)",
+      "Bash(sips --cropOffset 2900 0 --crop 2900 1440 home-light.png --out light-mid.png)",
+      "Bash(sips --cropOffset 5800 0 --crop 2600 1440 home-light.png --out light-bot.png)",
+      "Bash(curl -s http://localhost:3000/en)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0x6xb-5._.css\")",
+      "Bash(grep -n \"^html\\\\|[},]html[,{ ]\\\\|^  html\" served.css)",
+      "Bash(lsof -ti:9222 -sTCP:LISTEN)"
+    ]
+  }
+}
