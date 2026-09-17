@@ -1,13 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import { ArrowUpRight, ExternalLink, FileText, Globe } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { TickFrame } from "@/components/ui/tick-frame";
-import { asset, cn } from "@/lib/utils";
+import { GithubMark } from "@/components/ui/brand-icons";
+import { ProjectArtwork } from "@/components/ui/project-artwork";
+import { CATEGORY_META } from "@/lib/categories";
+import { cn } from "@/lib/utils";
 import { fadeUp } from "@/lib/animations";
 import { pick, pickList, type Locale, type Project } from "@/lib/data";
 
@@ -19,13 +22,15 @@ interface ProjectCardProps {
 }
 
 /**
- * Project card for grid contexts — the `/projects` index and the related
- * strip on a detail page. The home page uses `ProjectRow` instead, which
- * has room for a device and the full write-up.
+ * Project card — the one tile used everywhere projects are listed: the home
+ * strip, the `/projects` index, and the related row on a detail page.
  *
  * Framed rather than filled: a hairline border with corner ticks, matching
  * every other block on the site. The accent only appears on hover, so a
  * grid of these reads as a calm list until the pointer picks one out.
+ *
+ * The category line above the title is what lets a recruiter scanning a
+ * mixed grid tell a phone app from an API without reading the description.
  */
 export function ProjectCard({
   project,
@@ -41,6 +46,7 @@ export function ProjectCard({
     project.status === "in-progress"
       ? t("status.inProgress")
       : t(`status.${project.status}`);
+  const CategoryIcon = CATEGORY_META[project.category].icon;
 
   return (
     <motion.article
@@ -49,29 +55,13 @@ export function ProjectCard({
     >
       <TickFrame />
 
-      {/* ─── Image ───────────────────────────────────────────────── */}
+      {/* ─── Artwork ─────────────────────────────────────────────── */}
       <Link
         href={`/projects/${project.id}`}
-        className="relative block aspect-16/10 overflow-hidden border-b border-border bg-brand-950"
+        className="relative block aspect-16/10 overflow-hidden border-b border-border"
         aria-label={title}
       >
-        {/* Sits under the image so a project without artwork still reads as a
-            deliberate tile rather than an empty dark rectangle. */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 flex items-center justify-center font-heading text-6xl font-bold text-surface-50/80"
-        >
-          {title.charAt(0).toUpperCase()}
-        </span>
-        {project.image && (
-          <Image
-            src={asset(project.image)}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        )}
+        <ProjectArtwork project={project} title={title} size="card" />
         <span className="absolute top-3 inset-e-3 bg-background/85 px-2.5 py-1 text-[0.6875rem] uppercase tracking-[0.06em] text-foreground backdrop-blur-sm">
           {statusLabel}
         </span>
@@ -79,6 +69,11 @@ export function ProjectCard({
 
       {/* ─── Body ────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col p-5">
+        <p className="mb-2 flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-[0.08em] text-brand-600 dark:text-brand-400">
+          <CategoryIcon className="size-3.5 shrink-0" aria-hidden="true" />
+          {t(`categories.${project.category}`)}
+        </p>
+
         <div className="mb-3 flex items-start gap-2.5">
           <span
             aria-hidden="true"
@@ -92,7 +87,7 @@ export function ProjectCard({
           >
             {title}
             <ArrowUpRight
-              className="ms-1 inline size-3.5 -translate-y-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+              className="ms-1 inline size-3.5 -translate-y-0.5 opacity-0 transition-opacity group-hover:opacity-100 rtl:-scale-x-100"
               aria-hidden="true"
             />
           </Link>
@@ -143,36 +138,38 @@ interface ProjectLinksProps {
   t: ReturnType<typeof useTranslations<"Projects">>;
 }
 
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
 function ProjectLinks({ project, t }: ProjectLinksProps) {
-  const links: Array<{ href: string; label: string }> = [];
-  if (project.links.playStore) {
-    links.push({ href: project.links.playStore, label: t("playStore") });
-  }
-  if (project.links.appStore) {
-    links.push({ href: project.links.appStore, label: t("appStore") });
-  }
-  if (project.links.github) {
-    links.push({ href: project.links.github, label: t("viewCode") });
-  }
+  const candidates: Array<{ href?: string; label: string; icon: IconComponent }> = [
+    { href: project.links.playStore, label: t("playStore"), icon: ExternalLink },
+    { href: project.links.appStore, label: t("appStore"), icon: ExternalLink },
+    { href: project.links.live, label: t("viewLive"), icon: Globe },
+    { href: project.links.github, label: t("viewCode"), icon: GithubMark },
+    { href: project.links.caseStudy, label: t("caseStudy"), icon: FileText },
+  ];
+  const links = candidates.filter(
+    (l): l is { href: string; label: string; icon: IconComponent } => Boolean(l.href),
+  );
   if (links.length === 0) return null;
 
   return (
     <div className="flex shrink-0 items-center gap-1.5">
-      {links.map((link) => (
+      {links.map(({ href, label, icon: Icon }) => (
         <a
-          key={link.href}
-          href={link.href}
+          key={href}
+          href={href}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          aria-label={link.label}
-          title={link.label}
+          aria-label={label}
+          title={label}
           className={cn(
             "inline-flex size-7 items-center justify-center border border-border text-muted-foreground",
             "transition-colors hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400",
           )}
         >
-          <ExternalLink className="size-3.5" aria-hidden="true" />
+          <Icon className="size-3.5" aria-hidden="true" />
         </a>
       ))}
     </div>

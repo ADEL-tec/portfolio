@@ -16,21 +16,28 @@
   "Hero": {
     "greeting": "Hi, I'm",
     "name": "Adel Labdelli Merioua",
-    "title": "Full-Stack Developer & Mobile Application Specialist",
+    "title": "I ship production software end to end — mobile first.",
     "subtitle": "Flutter · Web Development · UI Design",
-    "tagline": "I build scalable, high-performance mobile and web applications with modern architecture — from idea to App Store.",
+    "tagline": "Four apps on the stores, the APIs behind them, and the web fronts that run them. Flutter, Node.js and React, with clean architecture throughout.",
     "ctaPrimary": "View my work",
     "ctaSecondary": "Get in touch",
     "availability": "Available for new opportunities",
     "basedIn": "Based in Doha, Qatar",
-    "eyebrow": "Mobile App Development",
+    "eyebrow": "Full-Stack Developer · Mobile, Web & Backend",
     "emailMe": "Email me",
-    "stats": {
-      "years": "Years shipping",
-      "apps": "Published apps",
-      "stores": "App stores",
-      "tech": "Technologies"
-    }
+    "scrollCue": "Scroll to at a glance"
+  },
+  "QuickFacts": {
+    "label": "At a glance",
+    "location": "Based in",
+    "availability": "Availability",
+    "experience": "Experience",
+    "years": "{count}+ years",
+    "shipped": "Shipped",
+    "shippedValue": "{apps} apps · {stores} stores",
+    "stack": "Core stack",
+    "links": "Links",
+    "cv": "CV (PDF)"
   },
   "About": {
     "title": "About me",
@@ -45,11 +52,6 @@
     "contactMe": "Get in touch"
   },
   "Projects": {
-    "title": "Selected projects",
-    "subtitle": "Production apps I've shipped, deployed, and maintained.",
-    "filterAll": "All",
-    "filterMobile": "Mobile",
-    "filterWeb": "Web",
     "viewProject": "View project",
     "viewCode": "View code",
     "viewLive": "Live demo",
@@ -64,30 +66,35 @@
       "inProgress": "In progress",
       "archived": "Archived"
     },
-    "items": {
-      "awashz": {
-        "title": "AwashZ — On-Demand Car Wash",
-        "subtitle": "Location-based mobile service platform",
-        "shortDescription": "A production-ready Flutter app that lets users book professional car wash and auto services delivered to their location.",
-        "fullDescription": "AwashZ is a comprehensive on-demand service platform with real-time location tracking, secure payments, and a service-provider dashboard. Push notifications via FCM keep customers informed throughout each appointment.",
-        "highlights": "Real-time bookings · GPS tracking · Payments · Push notifications"
-      },
-      "glamix": {
-        "title": "Glamix — Salon Booking",
-        "subtitle": "Salon and grooming services marketplace",
-        "shortDescription": "A salon discovery and appointment app with real-time availability, integrated payments, and intelligent reminders.",
-        "fullDescription": "Glamix lets users discover nearby salons, browse services, and book appointments seamlessly. Includes ratings & reviews, push reminders, and a dedicated dashboard for service providers to manage availability.",
-        "highlights": "Real-time availability · Reviews · Payment gateway · Provider dashboard"
-      },
-      "discountPlus": {
-        "title": "Discount Plus — Loyalty & Coupons",
-        "subtitle": "Digital loyalty and coupon platform",
-        "shortDescription": "A loyalty-and-coupons mobile app that connects local merchants with shoppers through location-aware deals and a points wallet.",
-        "fullDescription": "Discount Plus is a cross-platform Flutter app delivering location-based deals, a digital points wallet, and a merchant-facing portal for issuing and redeeming coupons. Built on Firebase with secure auth and real-time deal updates.",
-        "highlights": "Geo-aware deals · Points wallet · Merchant portal · Firebase backend"
-      }
+    "viewAll": "View all projects",
+    "all": "All",
+    "featuredEyebrow": "Selected projects",
+    "featuredHeading": "Production work across mobile, web and backend.",
+    "indexEyebrow": "All projects",
+    "indexHeading": "Everything I've shipped, by platform.",
+    "metaTitle": "Projects",
+    "metaDescription": "Production apps and services I've shipped — Flutter mobile apps, web apps, desktop software and backend APIs.",
+    "categories": {
+      "mobile": "Mobile apps",
+      "web": "Web apps",
+      "desktop": "Desktop apps",
+      "backend": "Backend & APIs"
     },
-    "viewAll": "View all projects"
+    "count": "{count, plural, one {# project} other {# projects}}",
+    "filterLabel": "Filter by platform",
+    "emptyCategory": "No {category} published yet.",
+    "browseAll": "Browse all projects",
+    "category": "Platform",
+    "platforms": "Runs on",
+    "links": "Links",
+    "noLinks": "Not publicly available yet",
+    "caseStudy": "Case study",
+    "keyFeatures": "Key features",
+    "related": "More {category}",
+    "noRelated": "No other {category} yet.",
+    "prev": "Previous project",
+    "next": "Next project",
+    "allProjects": "All projects"
   },
   "Skills": {
     "title": "Skills & expertise",
@@ -115,26 +122,19 @@
     "title": "Experience",
     "subtitle": "Five-plus years building production software across mobile, web, and backend.",
     "current": "Current",
-    "viewMore": "View details",
-    "items": {
-      "lead": {
-        "role": "Lead Mobile Developer",
-        "company": "Fiveline",
-        "period": "2023 — Present",
-        "description": "Leading mobile app delivery for on-demand service platforms (AwashZ, Glamix). End-to-end ownership of Flutter apps, Firebase backends, and Play Store / App Store releases."
-      },
-      "fullStack": {
-        "role": "Full-Stack Developer",
-        "company": "Freelance",
-        "period": "2021 — 2023",
-        "description": "Built cross-platform Flutter apps and Node.js APIs for clients across the GCC. Focus on clean architecture, payment integrations, and real-time features."
-      },
-      "mobile": {
-        "role": "Mobile Application Developer",
-        "company": "Various clients",
-        "period": "2019 — 2021",
-        "description": "Shipped multiple Flutter apps to production, gaining deep experience with state management (BLoC, Provider), Firebase, and REST integration."
-      }
+    "showAll": "Show all {count} responsibilities",
+    "showLess": "Show less"
+  },
+  "Education": {
+    "title": "Education & languages",
+    "subtitle": "Where I trained, and the languages I work in.",
+    "languages": "Languages",
+    "levels": {
+      "Native": "Native",
+      "Fluent": "Fluent",
+      "Professional": "Professional",
+      "Intermediate": "Intermediate",
+      "Basic": "Basic"
     }
   },
   "Contact": {
@@ -157,14 +157,19 @@
       "submitting": "Sending…",
       "success": "Thanks! I'll get back to you soon.",
       "error": "Something went wrong. Please try again or email me directly."
-    }
+    },
+    "ctaHeading": "Let's ship something that works.",
+    "ctaBody": "Open to mobile and full-stack roles, contract work, and consultations. I reply within a day.",
+    "availabilityLabel": "Availability"
   },
   "Footer": {
     "tagline": "Designed and built with care.",
     "rights": "© {year} Adel Labdelli Merioua. All rights reserved.",
     "builtWith": "Built with Next.js & Tailwind",
     "viewSource": "View source",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "links": "Links",
+    "social": "Find me online"
   },
   "Chat": {
     "openLabel": "Open chat",

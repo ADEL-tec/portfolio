@@ -15,8 +15,9 @@ import {
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { useHash } from "@/lib/hooks";
 import { useDirection } from "@/lib/useTranslations";
-import { NAV_ITEMS } from "./nav-config";
+import { NAV_ITEMS, isNavItemActive } from "./nav-config";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -28,16 +29,13 @@ import { ThemeToggle } from "./theme-toggle";
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const hash = useHash();
   const t = useTranslations("Nav");
   const { isRtl } = useDirection();
 
-  // Match the active item against the locale-less pathname returned by
-  // next-intl. Treat `/` as a strict match, everything else as prefix.
-  const isActive = (href: string) => {
-    const target = href.split("#")[0] || "/";
-    if (target === "/") return pathname === "/";
-    return pathname.startsWith(target);
-  };
+  // Match against the locale-less pathname next-intl returns, plus the hash
+  // so in-page anchors don't stay lit alongside Home.
+  const isActive = (href: string) => isNavItemActive(href, pathname, hash);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

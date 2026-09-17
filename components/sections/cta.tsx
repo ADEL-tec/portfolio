@@ -7,27 +7,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { TickFrame } from "@/components/ui/tick-frame";
 import { GithubMark, LinkedinMark } from "@/components/ui/brand-icons";
-import { portfolioData, pick, type Locale, type Localized } from "@/lib/data";
+import { portfolioData, pick, type Locale } from "@/lib/data";
 import { downloadResume } from "@/lib/utils";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
-
-const COPY = {
-  heading: {
-    en: "Let's ship something that works.",
-    fr: "Créons quelque chose qui fonctionne.",
-    ar: "لنُطلق شيئًا يعمل كما ينبغي.",
-  } satisfies Localized,
-  body: {
-    en: "Open to mobile and full-stack roles, contract work, and consultations. I reply within a day.",
-    fr: "Ouvert aux postes mobile et full-stack, aux missions en contrat et aux consultations. Je réponds sous 24 heures.",
-    ar: "متاح لوظائف الموبايل والتطوير المتكامل، والعمل بعقود، والاستشارات. أردّ خلال يوم واحد.",
-  } satisfies Localized,
-  availabilityLabel: {
-    en: "Availability",
-    fr: "Disponibilité",
-    ar: "التوفّر",
-  } satisfies Localized,
-};
 
 /**
  * Closing block — the pitch on one side, the hard details on the other.
@@ -65,10 +47,10 @@ export function CTA() {
             id="cta-heading"
             className="font-heading text-[clamp(1.625rem,3.4vw,2.25rem)] font-bold tracking-tight text-foreground"
           >
-            {pick(COPY.heading, locale)}
+            {t("ctaHeading")}
           </h2>
           <p className="mt-3.5 max-w-md leading-relaxed text-muted-foreground">
-            {pick(COPY.body, locale)}
+            {t("ctaBody")}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
@@ -113,7 +95,7 @@ export function CTA() {
             </span>
           </Detail>
 
-          <Detail label={pick(COPY.availabilityLabel, locale)}>
+          <Detail label={t("availabilityLabel")}>
             <span className="text-foreground">
               {pick(personal.availability, locale)}
             </span>

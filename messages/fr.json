@@ -16,21 +16,28 @@
   "Hero": {
     "greeting": "Bonjour, je suis",
     "name": "Adel Labdelli Merioua",
-    "title": "Développeur full-stack & spécialiste des applications mobiles",
+    "title": "Je livre des logiciels de production de bout en bout — mobile d'abord.",
     "subtitle": "Flutter · Développement web · Design UI",
-    "tagline": "Je conçois des applications mobiles et web évolutives et performantes, avec une architecture moderne — de l'idée à l'App Store.",
+    "tagline": "Quatre applications sur les stores, les API derrière elles et les fronts web qui les pilotent. Flutter, Node.js et React, avec une architecture propre partout.",
     "ctaPrimary": "Voir mes projets",
     "ctaSecondary": "Me contacter",
     "availability": "Disponible pour de nouvelles opportunités",
     "basedIn": "Basé à Doha, Qatar",
-    "eyebrow": "Développement d'applications mobiles",
+    "eyebrow": "Développeur full-stack · Mobile, web & backend",
     "emailMe": "M'écrire",
-    "stats": {
-      "years": "Ans d'expérience",
-      "apps": "Applications publiées",
-      "stores": "App stores",
-      "tech": "Technologies"
-    }
+    "scrollCue": "Aller à l'aperçu"
+  },
+  "QuickFacts": {
+    "label": "En un coup d'œil",
+    "location": "Basé à",
+    "availability": "Disponibilité",
+    "experience": "Expérience",
+    "years": "{count}+ ans",
+    "shipped": "Livré",
+    "shippedValue": "{apps} apps · {stores} stores",
+    "stack": "Stack principale",
+    "links": "Liens",
+    "cv": "CV (PDF)"
   },
   "About": {
     "title": "À propos",
@@ -45,11 +52,6 @@
     "contactMe": "Me contacter"
   },
   "Projects": {
-    "title": "Projets sélectionnés",
-    "subtitle": "Applications de production que j'ai conçues, déployées et maintenues.",
-    "filterAll": "Tous",
-    "filterMobile": "Mobile",
-    "filterWeb": "Web",
     "viewProject": "Voir le projet",
     "viewCode": "Voir le code",
     "viewLive": "Démo en ligne",
@@ -64,30 +66,35 @@
       "inProgress": "En cours",
       "archived": "Archivé"
     },
-    "items": {
-      "awashz": {
-        "title": "AwashZ — Lavage auto à la demande",
-        "subtitle": "Plateforme de services mobiles basée sur la localisation",
-        "shortDescription": "Une application Flutter de qualité production qui permet aux utilisateurs de réserver des services de lavage et d'entretien automobile directement à leur emplacement.",
-        "fullDescription": "AwashZ est une plateforme de services à la demande complète, avec suivi de localisation en temps réel, paiements sécurisés et un tableau de bord pour les prestataires. Les notifications push via FCM tiennent les clients informés à chaque étape du rendez-vous.",
-        "highlights": "Réservations en temps réel · Suivi GPS · Paiements · Notifications push"
-      },
-      "glamix": {
-        "title": "Glamix — Réservation de salons",
-        "subtitle": "Place de marché des services de salon et de beauté",
-        "shortDescription": "Une application de découverte de salons et de prise de rendez-vous, avec disponibilité en temps réel, paiements intégrés et rappels intelligents.",
-        "fullDescription": "Glamix permet aux utilisateurs de découvrir des salons à proximité, de parcourir les prestations et de réserver des rendez-vous en toute fluidité. Inclut un système d'avis, des rappels push et un tableau de bord dédié aux prestataires pour gérer leurs disponibilités.",
-        "highlights": "Disponibilité en temps réel · Avis · Passerelle de paiement · Espace prestataire"
-      },
-      "discountPlus": {
-        "title": "Discount Plus — Fidélité & coupons",
-        "subtitle": "Plateforme numérique de fidélité et de coupons",
-        "shortDescription": "Une application mobile de fidélité et de coupons qui connecte les commerçants locaux aux acheteurs grâce à des offres géolocalisées et un portefeuille de points.",
-        "fullDescription": "Discount Plus est une application Flutter multiplateforme proposant des offres géolocalisées, un portefeuille de points numérique et un portail commerçant pour émettre et valider les coupons. Construite sur Firebase avec authentification sécurisée et mises à jour d'offres en temps réel.",
-        "highlights": "Offres géolocalisées · Portefeuille de points · Espace commerçant · Backend Firebase"
-      }
+    "viewAll": "Voir tous les projets",
+    "all": "Tous",
+    "featuredEyebrow": "Projets sélectionnés",
+    "featuredHeading": "Du travail de production sur mobile, web et backend.",
+    "indexEyebrow": "Tous les projets",
+    "indexHeading": "Tout ce que j'ai livré, par plateforme.",
+    "metaTitle": "Projets",
+    "metaDescription": "Applications et services de production que j'ai livrés — apps mobiles Flutter, applications web, logiciels desktop et API backend.",
+    "categories": {
+      "mobile": "Apps mobiles",
+      "web": "Apps web",
+      "desktop": "Apps desktop",
+      "backend": "Backend & API"
     },
-    "viewAll": "Voir tous les projets"
+    "count": "{count, plural, one {# projet} other {# projets}}",
+    "filterLabel": "Filtrer par plateforme",
+    "emptyCategory": "Aucun projet {category} publié pour le moment.",
+    "browseAll": "Voir tous les projets",
+    "category": "Plateforme",
+    "platforms": "Disponible sur",
+    "links": "Liens",
+    "noLinks": "Pas encore disponible publiquement",
+    "caseStudy": "Étude de cas",
+    "keyFeatures": "Fonctionnalités clés",
+    "related": "Autres {category}",
+    "noRelated": "Pas d'autres {category} pour le moment.",
+    "prev": "Projet précédent",
+    "next": "Projet suivant",
+    "allProjects": "Tous les projets"
   },
   "Skills": {
     "title": "Compétences & expertise",
@@ -115,26 +122,19 @@
     "title": "Expérience",
     "subtitle": "Plus de cinq ans à construire des logiciels en production, sur mobile, web et backend.",
     "current": "Actuel",
-    "viewMore": "Voir le détail",
-    "items": {
-      "lead": {
-        "role": "Développeur mobile principal",
-        "company": "Fiveline",
-        "period": "2023 — Présent",
-        "description": "Pilotage de la livraison d'applications mobiles pour des plateformes de services à la demande (AwashZ, Glamix). Responsabilité de bout en bout sur les apps Flutter, les backends Firebase et les publications Play Store / App Store."
-      },
-      "fullStack": {
-        "role": "Développeur full-stack",
-        "company": "Indépendant",
-        "period": "2021 — 2023",
-        "description": "Conception d'applications Flutter multiplateformes et d'API Node.js pour des clients à travers le Golfe. Axé sur l'architecture propre, l'intégration de paiements et les fonctionnalités temps réel."
-      },
-      "mobile": {
-        "role": "Développeur d'applications mobiles",
-        "company": "Clients divers",
-        "period": "2019 — 2021",
-        "description": "Mise en production de plusieurs applications Flutter, acquérant une expérience approfondie en gestion d'état (BLoC, Provider), Firebase et intégration REST."
-      }
+    "showAll": "Afficher les {count} responsabilités",
+    "showLess": "Réduire"
+  },
+  "Education": {
+    "title": "Formation & langues",
+    "subtitle": "Là où je me suis formé, et les langues dans lesquelles je travaille.",
+    "languages": "Langues",
+    "levels": {
+      "Native": "Langue maternelle",
+      "Fluent": "Courant",
+      "Professional": "Professionnel",
+      "Intermediate": "Intermédiaire",
+      "Basic": "Notions"
     }
   },
   "Contact": {
@@ -157,14 +157,19 @@
       "submitting": "Envoi…",
       "success": "Merci ! Je vous réponds très vite.",
       "error": "Une erreur est survenue. Réessayez ou écrivez-moi directement."
-    }
+    },
+    "ctaHeading": "Créons quelque chose qui fonctionne.",
+    "ctaBody": "Ouvert aux postes mobile et full-stack, aux missions en contrat et aux consultations. Je réponds sous 24 heures.",
+    "availabilityLabel": "Disponibilité"
   },
   "Footer": {
     "tagline": "Conçu et développé avec soin.",
     "rights": "© {year} Adel Labdelli Merioua. Tous droits réservés.",
     "builtWith": "Construit avec Next.js & Tailwind",
     "viewSource": "Voir le code source",
-    "backToTop": "Retour en haut"
+    "backToTop": "Retour en haut",
+    "links": "Liens",
+    "social": "Me retrouver en ligne"
   },
   "Chat": {
     "openLabel": "Ouvrir le chat",

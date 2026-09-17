@@ -14,11 +14,11 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { routing } from "@/i18n/routing";
+import { PLATFORMS, PROJECT_CATEGORIES } from "@/lib/categories";
 import { portfolioData, type Locale } from "@/lib/data";
 
 const LOCALES = routing.locales;
 
-const PROJECT_CATEGORIES = ["mobile", "web", "fullstack"];
 const PROJECT_STATUSES = ["published", "in-progress", "archived"];
 const SKILL_CATEGORIES = [
   "mobile",
@@ -77,6 +77,13 @@ describe("personal", () => {
     expect(personal.phone).toBeTruthy();
   });
 
+  it("lists a core stack for the at-a-glance strip", () => {
+    expect(personal.coreStack.length).toBeGreaterThan(0);
+    for (const item of personal.coreStack) {
+      expect(item.trim()).not.toBe("");
+    }
+  });
+
   it("points avatar and background at files that exist", () => {
     expect(existsSync(publicPath(personal.avatar))).toBe(true);
     expect(existsSync(publicPath(personal.backgroundImage))).toBe(true);
@@ -112,6 +119,10 @@ describe("projects", () => {
     expect(new Set(orders).size).toBe(orders.length);
   });
 
+  it("features at least one project for the home page", () => {
+    expect(projects.some((p) => p.featured)).toBe(true);
+  });
+
   describe.each(portfolioData.projects.map((p) => [p.id, p] as const))("%s", (id, project) => {
     it.each(["title", "subtitle", "description", "fullDescription", "role", "duration", "metric"])(
       "has a translated %s",
@@ -129,6 +140,25 @@ describe("projects", () => {
       expect(PROJECT_STATUSES).toContain(project.status);
     });
 
+    it("lists known platforms without duplicates", () => {
+      expect(Array.isArray(project.platforms)).toBe(true);
+      for (const platform of project.platforms) {
+        expect(PLATFORMS).toContain(platform);
+      }
+      expect(new Set(project.platforms).size).toBe(project.platforms.length);
+    });
+
+    // A store link is a claim about a platform; the platforms list has to
+    // back it up or the "Runs on" chips contradict the Links block.
+    it("declares the platform behind each store link", () => {
+      if (project.links.playStore) {
+        expect(project.platforms).toContain("android");
+      }
+      if (project.links.appStore) {
+        expect(project.platforms).toContain("ios");
+      }
+    });
+
     it("has a two-character monogram", () => {
       expect(project.monogram).toHaveLength(2);
     });
@@ -141,7 +171,10 @@ describe("projects", () => {
       }
     });
 
-    it("points its hero image at a file that exists", () => {
+    // `""` is the documented "no artwork yet" value and every surface falls
+    // back for it; anything else has to resolve to a real file.
+    it("points its hero image at a file that exists, if it has one", () => {
+      if (project.image === "") return;
       expect(existsSync(publicPath(project.image))).toBe(true);
     });
 

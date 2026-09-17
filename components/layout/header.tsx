@@ -7,10 +7,10 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { cn, downloadResume } from "@/lib/utils";
-import { useScrollPosition } from "@/lib/hooks";
+import { useHash, useScrollPosition } from "@/lib/hooks";
 import { portfolioData } from "@/lib/data";
 import { fadeDown } from "@/lib/animations";
-import { NAV_ITEMS } from "./nav-config";
+import { NAV_ITEMS, isNavItemActive } from "./nav-config";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileMenu } from "./mobile-menu";
@@ -28,16 +28,13 @@ import { MobileMenu } from "./mobile-menu";
  */
 export function Header() {
   const pathname = usePathname();
+  const hash = useHash();
   const { y } = useScrollPosition();
   const scrolled = y > 8;
   const t = useTranslations("Nav");
   const tAbout = useTranslations("About");
 
-  const isActive = (href: string) => {
-    const target = href.split("#")[0] || "/";
-    if (target === "/") return pathname === "/";
-    return pathname.startsWith(target);
-  };
+  const isActive = (href: string) => isNavItemActive(href, pathname, hash);
 
   return (
     <motion.header

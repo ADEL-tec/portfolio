@@ -21,6 +21,7 @@
 import raw from "@/portfolio-data.json";
 
 import { routing } from "@/i18n/routing";
+import type { Platform, ProjectCategory } from "@/lib/categories";
 
 // ─── Locale & localization primitives ──────────────────────────────────────
 
@@ -52,7 +53,7 @@ export function pickList(value: LocalizedList, locale: Locale): readonly string[
 
 // ─── Type definitions ──────────────────────────────────────────────────────
 
-export type ProjectCategory = "mobile" | "web" | "fullstack";
+export type { ProjectCategory, Platform } from "@/lib/categories";
 export type ProjectStatus = "published" | "in-progress" | "archived";
 
 export type SkillCategory =
@@ -85,7 +86,13 @@ export interface ProjectLinks {
 export interface Project {
   /** Stable URL-safe slug. Used as the dynamic route segment `/projects/[id]`. */
   id: string;
+  /** Which bucket the project files under on `/projects`. See `lib/categories`. */
   category: ProjectCategory;
+  /**
+   * Where it runs. Drives the "Runs on" chips and the JSON-LD
+   * `operatingSystem`. Backend/API projects legitimately have none.
+   */
+  platforms: readonly Platform[];
   status: ProjectStatus;
   /** Lower-is-earlier — controls the order on the listing page. */
   order: number;
@@ -126,9 +133,13 @@ export interface Project {
   /** Translated freeform duration (e.g. "3 months"). */
   duration: Localized;
 
-  /** Hero image path under `/public`. */
+  /**
+   * Landscape hero art under `/public`. An empty string means "none yet" —
+   * every surface falls back to screenshots or the monogram tile, so a
+   * project can go live before its artwork does.
+   */
   image: string;
-  /** Gallery screenshots. */
+  /** Gallery screenshots. Portrait captures for mobile, wide for the rest. */
   images: readonly string[];
 
   links: ProjectLinks;
@@ -217,6 +228,12 @@ export interface PersonalInfo {
   backgroundImage: string;
   resumeUrl?: string;
 
+  /**
+   * The three or four technologies a recruiter should see first. Brand
+   * names, so not translated. Shown in the "At a glance" strip.
+   */
+  coreStack: readonly string[];
+
   /** Current hiring status, shown in the contact card. */
   availability: Localized;
   /** Short capability pills under the About copy. */
@@ -288,26 +305,14 @@ export function getProjectById(id: string): Project | undefined {
   return portfolioData.projects.find((p) => p.id === id);
 }
 
-/** Featured projects for the homepage strip. */
+/** Featured projects for the homepage strip, in display order. */
 export function getFeaturedProjects(): readonly Project[] {
-  return portfolioData.projects.filter((p) => p.featured);
-}
-
-/** All skills, optionally filtered by category. */
-export function getSkills(category?: SkillCategory): readonly SkillGroup[] {
-  return category
-    ? portfolioData.skills.filter((g) => g.category === category)
-    : portfolioData.skills;
+  return getProjects().filter((p) => p.featured);
 }
 
 /** Work experience in reverse chronological order (most recent first). */
 export function getExperiences(): readonly ExperienceEntry[] {
   return [...portfolioData.experience].sort((a, b) => b.id - a.id);
-}
-
-/** Currently-held positions. */
-export function getCurrentRoles(): readonly ExperienceEntry[] {
-  return portfolioData.experience.filter((e) => e.current);
 }
 
 /** Re-export for convenience. */

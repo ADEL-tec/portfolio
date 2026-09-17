@@ -6,31 +6,25 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { SectionHeading } from "./section-heading";
-import { ProjectRow } from "./project-row";
+import { ProjectCard } from "./project-card";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
-import { getProjects, type Locale } from "@/lib/data";
+import { getFeaturedProjects, type Locale } from "@/lib/data";
 
-interface ProjectsProps {
-  /**
-   * Render the trailing "view all projects" link. Off when this section
-   * *is* the `/projects` page — otherwise the link points at the current
-   * page.
-   */
-  showAllLink?: boolean;
-}
+/** Cap so the strip stays a highlight reel, not the whole index. */
+const MAX_FEATURED = 6;
 
 /**
- * Projects section — every project gets a full row rather than a card in a
- * grid, so each one has room for its device, its stack, and what shipping
- * it actually involved.
+ * Home-page "Selected projects" strip: the featured projects as a card grid
+ * with a link on to the full, filterable `/projects` index.
  *
- * Shared by the home page and `/projects`, which differ only by that
- * trailing link.
+ * A grid rather than full-width rows so the section stays one viewport
+ * tall as the project count grows — the rows were four screens of scroll
+ * before a recruiter reached the stack and the timeline.
  */
-export function Projects({ showAllLink = true }: ProjectsProps) {
+export function Projects() {
   const t = useTranslations("Projects");
   const locale = useLocale() as Locale;
-  const projects = getProjects();
+  const projects = getFeaturedProjects().slice(0, MAX_FEATURED);
 
   return (
     <motion.section
@@ -44,34 +38,27 @@ export function Projects({ showAllLink = true }: ProjectsProps) {
     >
       <SectionHeading
         id="projects-heading"
-        eyebrow={t("title")}
-        heading={t("subtitle")}
+        eyebrow={t("featuredEyebrow")}
+        heading={t("featuredHeading")}
         headingClassName="max-w-160"
         className="mb-12"
       />
 
-      <div className="flex flex-col gap-10">
-        {projects.map((project, i) => (
-          <ProjectRow
-            key={project.id}
-            project={project}
-            locale={locale}
-            reversed={i % 2 === 1}
-          />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} locale={locale} />
         ))}
       </div>
 
-      {showAllLink && (
-        <motion.div variants={fadeUp} className="mt-10">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 border border-border px-5.5 py-3 font-heading text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-foreground/6"
-          >
-            {t("viewAll")}
-            <ArrowRight className="size-4 rtl:rotate-180" aria-hidden="true" />
-          </Link>
-        </motion.div>
-      )}
+      <motion.div variants={fadeUp} className="mt-10">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 border border-border px-5.5 py-3 font-heading text-[0.9375rem] font-semibold text-foreground transition-colors hover:bg-foreground/6"
+        >
+          {t("viewAll")}
+          <ArrowRight className="size-4 rtl:rotate-180" aria-hidden="true" />
+        </Link>
+      </motion.div>
     </motion.section>
   );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { Geist_Mono, Barlow, Barlow_Condensed } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -9,6 +8,7 @@ import "../globals.css";
 import { cn } from "@/lib/utils";
 import { routing, isRtl, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeScript } from "@/components/theme-script";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
@@ -16,7 +16,6 @@ import { ScrollProgress } from "@/components/layout/scroll-progress";
 // ChatWidget is intentionally not mounted — the assistant is built but the
 // public site doesn't surface it. Re-add `import { ChatWidget } from
 // "@/components/chat/widget"` and the `<ChatWidget />` line below to re-enable.
-import { NO_FLASH_SCRIPT } from "@/lib/theme";
 import { pageMetadata, personSchema, websiteSchema } from "@/lib/seo";
 
 // Body copy. Barlow's slightly condensed lowercase keeps long paragraphs
@@ -91,18 +90,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     >
       <head>
         {/* Runs before paint so the correct .dark class is on <html> —
-            prevents a light/dark flash on first load.
-
-            Goes through next/script rather than a bare <script>: React
-            neuters script elements it creates during a *client* render and
-            warns about it ("Scripts inside React components are never
-            executed when rendering on the client"). This one only ever needs
-            to run from the server-rendered HTML, and `beforeInteractive`
-            emits it into <head> ahead of any Next.js module, which is
-            exactly the pre-paint guarantee we need. The JSON-LD tags below
-            stay as plain <script> — React exempts non-executable types, and
-            a native tag is what the Next.js JSON-LD guide prescribes. */}
-        <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
+            prevents a light/dark flash on first load. Server-render only;
+            see the component for why. The JSON-LD tags below stay as plain
+            <script> — React exempts non-executable types. */}
+        <ThemeScript />
         {/* JSON-LD: Person + WebSite. One script per @type so search engines
             can parse them independently. Generated server-side at build. */}
         <script

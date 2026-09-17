@@ -1,13 +1,13 @@
 "use client";
 
-import { Mail } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 
 import { GithubMark, LinkedinMark } from "@/components/ui/brand-icons";
 import { Link } from "@/i18n/navigation";
 import { portfolioData, pick, type Locale } from "@/lib/data";
-import { scrollToSection } from "@/lib/utils";
+import { downloadResume, scrollToSection } from "@/lib/utils";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { NAV_ITEMS } from "./nav-config";
 
@@ -23,6 +23,7 @@ import { NAV_ITEMS } from "./nav-config";
 export function Footer() {
   const tNav = useTranslations("Nav");
   const tFoot = useTranslations("Footer");
+  const tAbout = useTranslations("About");
   const locale = useLocale() as Locale;
 
   const year = new Date().getFullYear();
@@ -57,7 +58,7 @@ export function Footer() {
             className="flex flex-col gap-3"
           >
             <h2 className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
-              {tNav("home")}
+              {tFoot("links")}
             </h2>
             <ul className="flex flex-col gap-2 text-sm">
               {NAV_ITEMS.map((item) => (
@@ -70,20 +71,23 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => downloadResume(portfolioData.personal.resumeUrl)}
+                  className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-brand-600 dark:hover:text-brand-400"
+                >
+                  <Download className="size-4" aria-hidden="true" />
+                  {tAbout("downloadCv")}
+                </button>
+              </li>
             </ul>
           </motion.nav>
 
           {/* Social */}
           <motion.div variants={fadeUp} className="flex flex-col gap-3">
             <h2 className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
-              {pick(
-                {
-                  en: "Find me online",
-                  fr: "Me retrouver en ligne",
-                  ar: "تواصل عبر الإنترنت",
-                },
-                locale,
-              )}
+              {tFoot("social")}
             </h2>
             <ul className="flex flex-col gap-2 text-sm">
               <FooterLink

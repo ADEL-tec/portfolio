@@ -2,32 +2,29 @@
 
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { ChevronDown, Download, Mail } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
-import { TickFrame } from "@/components/ui/tick-frame";
 import { PhoneMockup } from "@/components/ui/phone-mockup";
-import { portfolioData, pick, type Locale } from "@/lib/data";
+import { portfolioData } from "@/lib/data";
 import { downloadResume } from "@/lib/utils";
 import { fadeUp, staggerContainer, transitions } from "@/lib/animations";
 import { useMediaQuery } from "@/lib/hooks";
 
 /**
- * Landing hero.
+ * Landing hero: who, what role, and the two actions a recruiter takes —
+ * grab the CV or write. Everything else (facts, stack, links) sits in the
+ * at-a-glance strip directly below, so this block stays a single idea.
  *
  * Two columns that wrap to one on narrow viewports: the type block leads,
  * a trio of floating devices sits opposite. Behind both, a graph-paper wash
  * drifts at a slower rate than the devices, which drift at slower rates than
  * the page — three parallax planes that give the section depth without any
  * of it moving fast enough to distract.
- *
- * The stat strip carries only facts that come out of `portfolioData`, so it
- * can't drift out of sync with the rest of the site.
  */
 export function Hero() {
   const t = useTranslations("Hero");
   const tAbout = useTranslations("About");
-  const locale = useLocale() as Locale;
-  const { personal, projects, skills } = portfolioData;
+  const { personal } = portfolioData;
 
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const { scrollY } = useScroll();
@@ -38,24 +35,6 @@ export function Hero() {
   const leftY = useParallax(scrollY, reduceMotion ? 0 : 0.1);
   const centreY = useParallax(scrollY, reduceMotion ? 0 : 0.22);
   const rightY = useParallax(scrollY, reduceMotion ? 0 : 0.16);
-
-  // Every figure below is derived, never typed in by hand.
-  const storeCount = new Set(
-    projects.flatMap((p) =>
-      [
-        p.links.playStore ? "play" : null,
-        p.links.appStore ? "app" : null,
-      ].filter(Boolean),
-    ),
-  ).size;
-  const techCount = skills.reduce((sum, g) => sum + g.items.length, 0);
-
-  const stats = [
-    { value: `${personal.yearsExperience}+`, label: t("stats.years") },
-    { value: `${projects.length}`, label: t("stats.apps") },
-    { value: `${storeCount}`, label: t("stats.stores") },
-    { value: `${Math.floor(techCount / 10) * 10}+`, label: t("stats.tech") },
-  ];
 
   const [firstName, ...restName] = personal.fullName.split(" ");
   // The trio is all-or-nothing — two floating phones round an empty slot
@@ -75,7 +54,7 @@ export function Hero() {
         className="bg-grid pointer-events-none absolute inset-x-[-5%] top-[-10%] bottom-[-5%] -z-10"
       />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-x-16 gap-y-14 px-6 pt-16 pb-20 sm:px-8 lg:px-12 lg:pt-24 lg:pb-28">
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-x-16 gap-y-14 px-6 pt-16 pb-16 sm:px-8 lg:px-12 lg:pt-24 lg:pb-20">
         {/* ─── Type block ──────────────────────────────────────────── */}
         <motion.div
           variants={staggerContainer(0.09, 0.05)}
@@ -99,7 +78,7 @@ export function Hero() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-2.5 font-heading text-2xl font-medium text-brand-700 sm:text-[1.4rem] dark:text-brand-300"
+            className="mt-2.5 max-w-140 font-heading text-2xl font-medium text-brand-700 sm:text-[1.4rem] dark:text-brand-300"
           >
             {t("title")}
           </motion.p>
@@ -130,27 +109,6 @@ export function Hero() {
               {t("emailMe")}
             </a>
           </motion.div>
-
-          {/* ─── Stat strip ────────────────────────────────────────── */}
-          <motion.dl
-            variants={fadeUp}
-            className="relative mt-8 flex max-w-140 flex-wrap border border-border"
-          >
-            <TickFrame />
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex-[1_1_120px] border-e border-border px-4.5 py-4 last:border-e-0"
-              >
-                <dt className="font-heading text-[1.7rem] font-bold tabular-nums text-foreground">
-                  {stat.value}
-                </dt>
-                <dd className="mt-0.5 text-[0.65rem] uppercase tracking-[0.06em] text-muted-foreground">
-                  {stat.label}
-                </dd>
-              </div>
-            ))}
-          </motion.dl>
         </motion.div>
 
         {/* ─── Device trio ─────────────────────────────────────────── */}
@@ -201,14 +159,11 @@ export function Hero() {
 
       {/* Scroll cue */}
       <motion.a
-        href="#about"
+        href="#at-a-glance"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ ...transitions.slow, delay: 1.2 }}
-        aria-label={pick(
-          { en: "Scroll to About", fr: "Aller à la section À propos", ar: "انتقل إلى نبذة عني" },
-          locale,
-        )}
+        aria-label={t("scrollCue")}
         className="absolute bottom-4 inset-s-1/2 -translate-x-1/2 text-foreground/40 transition-colors hover:text-brand-500 rtl:translate-x-1/2"
       >
         <ChevronDown className="size-5 animate-bounce-down" aria-hidden="true" />

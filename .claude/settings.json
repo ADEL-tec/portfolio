@@ -30,7 +30,8 @@
       "Bash(python3 -c ' *)",
       "Bash(curl -s \"http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__0x6xb-5._.css\")",
       "Bash(grep -n \"^html\\\\|[},]html[,{ ]\\\\|^  html\" served.css)",
-      "Bash(lsof -ti:9222 -sTCP:LISTEN)"
+      "Bash(lsof -ti:9222 -sTCP:LISTEN)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k:\\(list\\(v.keys\\(\\)\\) if isinstance\\(v,dict\\) else v\\) for k,v in d.items\\(\\)},ensure_ascii=False,indent=1\\)\\)\")"
     ]
   }
 }
