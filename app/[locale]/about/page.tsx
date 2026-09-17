@@ -31,7 +31,8 @@ export default async function AboutPage({ params }: PageProps) {
 
   return (
     <>
-      <About />
+      {/* Above the fold here, so the portrait is this page's LCP element. */}
+      <About priority />
       <Experience />
       <Education />
       <Skills />

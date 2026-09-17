@@ -3,12 +3,12 @@ import { setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
 
 import { Hero } from "@/components/sections/hero";
-import { About } from "@/components/sections/about";
+import { QuickFacts } from "@/components/sections/quick-facts";
 import { Projects } from "@/components/sections/projects";
 import { Skills } from "@/components/sections/skills";
 import { Experience } from "@/components/sections/experience";
 import { Education } from "@/components/sections/education";
-import { Testimonials } from "@/components/sections/testimonials";
+import { Statement } from "@/components/sections/statement";
 import { CTA } from "@/components/sections/cta";
 import { routing, type Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -23,6 +23,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return pageMetadata({ locale: safe, path: "/" });
 }
 
+/**
+ * Home, in the order a recruiter reads: who and what (hero), the facts
+ * they're hunting for (at a glance), proof of shipping (projects), the
+ * stack they keyword-match on (skills), the timeline (experience), the
+ * credentials (education), then the close. The longer About narrative
+ * lives on `/about`.
+ */
 export default async function Home({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -30,12 +37,12 @@ export default async function Home({ params }: PageProps) {
   return (
     <>
       <Hero />
-      <About />
+      <QuickFacts />
       <Projects />
       <Skills />
       <Experience />
       <Education />
-      <Testimonials />
+      <Statement />
       <CTA />
     </>
   );

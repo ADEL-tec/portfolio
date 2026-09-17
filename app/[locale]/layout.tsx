@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { Geist_Mono, Barlow, Barlow_Condensed } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
@@ -8,17 +8,32 @@ import "../globals.css";
 import { cn } from "@/lib/utils";
 import { routing, isRtl, type Locale } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeScript } from "@/components/theme-script";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { PageTransition } from "@/components/layout/page-transition";
+import { ScrollProgress } from "@/components/layout/scroll-progress";
 // ChatWidget is intentionally not mounted — the assistant is built but the
 // public site doesn't surface it. Re-add `import { ChatWidget } from
 // "@/components/chat/widget"` and the `<ChatWidget />` line below to re-enable.
-import { NO_FLASH_SCRIPT } from "@/lib/theme";
 import { pageMetadata, personSchema, websiteSchema } from "@/lib/seo";
 
-const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
-const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+// Body copy. Barlow's slightly condensed lowercase keeps long paragraphs
+// compact without the cramped feel of a true condensed face.
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
+});
+
+// Display cut — headings, stats, nav, buttons. The width contrast against
+// Barlow is what makes the headings read as a distinct voice.
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-condensed",
+});
+
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
@@ -66,17 +81,19 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       dir={dir}
       className={cn(
         "h-full antialiased",
-        geistSans.variable,
+        barlow.variable,
+        barlowCondensed.variable,
         geistMono.variable,
-        figtree.variable,
         "font-sans",
       )}
       suppressHydrationWarning
     >
       <head>
-        {/* Runs before paint so the correct .dark class is on <html> — */}
-        {/* prevents a light/dark flash on first load. */}
-        <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
+        {/* Runs before paint so the correct .dark class is on <html> —
+            prevents a light/dark flash on first load. Server-render only;
+            see the component for why. The JSON-LD tags below stay as plain
+            <script> — React exempts non-executable types. */}
+        <ThemeScript />
         {/* JSON-LD: Person + WebSite. One script per @type so search engines
             can parse them independently. Generated server-side at build. */}
         <script
@@ -96,6 +113,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         <div id="top" />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider defaultTheme="system">
+            <ScrollProgress />
             <Header />
             <PageTransition>{children}</PageTransition>
             <Footer />

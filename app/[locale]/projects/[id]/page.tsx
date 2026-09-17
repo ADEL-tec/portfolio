@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import type { ComponentType, SVGProps } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  FileText,
+  Globe,
+} from "lucide-react";
 import {
   getLocale,
   getTranslations,
@@ -10,17 +17,20 @@ import {
 import { hasLocale } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { TickFrame } from "@/components/ui/tick-frame";
+import { GithubMark } from "@/components/ui/brand-icons";
+import { ProjectArtwork } from "@/components/ui/project-artwork";
+import { ProjectCard } from "@/components/sections/project-card";
+import { ProjectGallery } from "@/components/sections/project-gallery";
+import { CATEGORY_META, PLATFORM_LABEL } from "@/lib/categories";
 import {
   getProjectById,
   getProjects,
   pick,
   pickList,
   type Locale,
+  type Project,
 } from "@/lib/data";
-import { ProjectCard } from "@/components/sections/project-card";
-import { ProjectGallery } from "@/components/sections/project-gallery";
 import { routing } from "@/i18n/routing";
 import {
   SITE_URL,
@@ -28,7 +38,7 @@ import {
   pageMetadata,
   projectSchema,
 } from "@/lib/seo";
-import { asset } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 type PageProps = { params: Promise<{ locale: string; id: string }> };
 
@@ -54,6 +64,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
+/**
+ * Project detail page.
+ *
+ * Same editorial language as every other surface — hairline frames with
+ * corner ticks, square chips, condensed headings — so a recruiter arriving
+ * here from a shared link sees the same site as one who came via the home
+ * page. The sidebar carries the scannable facts (role, platform, stack,
+ * where to get it); the body carries the write-up.
+ */
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { locale, id } = await params;
   setRequestLocale(locale);
@@ -79,21 +98,26 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     project.status === "in-progress"
       ? t("status.inProgress")
       : t(`status.${project.status}`);
+  const categoryLabel = t(`categories.${project.category}`);
+  const CategoryIcon = CATEGORY_META[project.category].icon;
+  const platforms = project.platforms.map((p) => PLATFORM_LABEL[p]);
 
-  const related = getProjects()
-    .filter((p) => p.id !== project.id && p.category === project.category)
-    .slice(0, 2);
+  // Siblings share the project's category so prev/next keeps a reader
+  // inside the kind of work they came to see.
+  const siblings = getProjects().filter((p) => p.category === project.category);
+  const index = siblings.findIndex((p) => p.id === project.id);
+  const prev = index > 0 ? siblings[index - 1] : undefined;
+  const next = index < siblings.length - 1 ? siblings[index + 1] : undefined;
+  const related = siblings.filter((p) => p.id !== project.id).slice(0, 3);
 
   const breadcrumb = breadcrumbSchema([
     { name: "Home", url: `${SITE_URL}/${currentLocale}` },
-    { name: t("title"), url: `${SITE_URL}/${currentLocale}/projects` },
+    { name: t("allProjects"), url: `${SITE_URL}/${currentLocale}/projects` },
     { name: title, url: `${SITE_URL}/${currentLocale}/projects/${project.id}` },
   ]);
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-16">
-      {/* JSON-LD: SoftwareApplication for the project + BreadcrumbList for
-          navigation context. */}
+    <main className="mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 lg:px-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -106,71 +130,59 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       />
 
       {/* ─── Back link ─────────────────────────────────────────── */}
-      <Button asChild variant="ghost" size="sm" className="mb-8 -ms-2">
-        <Link href="/projects">
-          <ArrowLeft
-            className="size-4 rtl:rotate-180"
-            aria-hidden="true"
-          />
-          {tCommon("back")}
-        </Link>
-      </Button>
+      <Link
+        href="/projects"
+        className="mb-10 inline-flex items-center gap-1.5 font-heading text-sm font-semibold text-muted-foreground transition-colors hover:text-brand-600 dark:hover:text-brand-400"
+      >
+        <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden="true" />
+        {tCommon("back")}
+      </Link>
 
       {/* ─── Header ────────────────────────────────────────────── */}
       <header className="flex flex-col gap-4 border-b border-border pb-10">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge
-            variant={project.status === "published" ? "default" : "outline"}
-          >
-            {statusLabel}
-          </Badge>
-          {highlights.map((h) => (
-            <Badge key={h} variant="outline" className="font-normal">
-              {h}
-            </Badge>
-          ))}
-        </div>
+        <p className="flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-[0.08em] text-brand-600 dark:text-brand-400">
+          <CategoryIcon className="size-3.5 shrink-0" aria-hidden="true" />
+          {categoryLabel}
+          {platforms.length > 0 && <span aria-hidden="true">·</span>}
+          {platforms.join(" · ")}
+        </p>
 
-        <h1 className="text-section font-bold tracking-tight text-foreground">
+        <h1 className="max-w-4xl text-section font-heading font-bold text-foreground">
           {title}
         </h1>
-        <p className="max-w-3xl text-xl text-muted-foreground">{subtitle}</p>
+        <p className="max-w-3xl text-lg text-muted-foreground">{subtitle}</p>
+
+        <ul className="flex flex-wrap items-center gap-2">
+          <Chip tone="solid">{statusLabel}</Chip>
+          {highlights.map((h) => (
+            <Chip key={h}>{h}</Chip>
+          ))}
+        </ul>
       </header>
 
-      {/* ─── Hero image ────────────────────────────────────────── */}
-      <DetailImage src={project.image} title={title} className="my-10" />
+      {/* ─── Hero art ──────────────────────────────────────────── */}
+      <HeroArt project={project} title={title} />
 
-      {/* ─── Body: long description + sidebar ──────────────────── */}
-      <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+      {/* ─── Body: write-up + sidebar ───────────────────────────── */}
+      <div className="mt-12 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
         <article className="flex flex-col gap-10">
-          {/* Full description */}
-          <section className="flex flex-col gap-4">
-            <p className="text-lg leading-relaxed text-foreground/90">
-              {fullDescription}
-            </p>
-          </section>
+          <p className="text-lg leading-relaxed text-foreground/90">
+            {fullDescription}
+          </p>
 
-          {/* Features */}
-          <section className="flex flex-col gap-4">
-            <h2 className="text-xl font-semibold text-foreground">
-              {pick(
-                {
-                  en: "Key features",
-                  fr: "Fonctionnalités clés",
-                  ar: "الميزات الأساسية",
-                },
-                currentLocale,
-              )}
+          <section aria-labelledby="features-heading" className="flex flex-col gap-4">
+            <h2
+              id="features-heading"
+              className="font-heading text-[1.375rem] font-semibold text-foreground"
+            >
+              {t("keyFeatures")}
             </h2>
-            <ul className="grid gap-2 sm:grid-cols-2">
+            <ul className="grid gap-3 sm:grid-cols-2">
               {features.map((feature, i) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 rounded-xl border border-border bg-card/50 p-4"
-                >
+                <li key={feature} className="flex items-start gap-3">
                   <span
                     aria-hidden="true"
-                    className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-500/10 text-xs font-semibold text-brand-600 tabular-nums dark:text-brand-400"
+                    className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center border border-border font-heading text-xs font-semibold tabular-nums text-brand-700 dark:text-brand-300"
                   >
                     {i + 1}
                   </span>
@@ -182,63 +194,79 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </ul>
           </section>
 
-          {/* Testimonial */}
           {testimonial && (
-            <section className="rounded-2xl border-s-4 border-brand-500 bg-muted/40 p-6">
-              <p className="text-base italic leading-relaxed text-foreground">
-                &ldquo;{testimonial}&rdquo;
-              </p>
-            </section>
+            <blockquote className="border-s-2 border-brand-500 ps-5 text-base italic leading-relaxed text-foreground">
+              &ldquo;{testimonial}&rdquo;
+            </blockquote>
           )}
         </article>
 
         {/* ─── Sidebar ────────────────────────────────────────── */}
-        <aside className="flex h-fit flex-col gap-6 rounded-2xl border border-border bg-card/50 p-6 lg:sticky lg:top-24">
-          <SidebarRow label={t("role")} value={role} />
-          <SidebarRow label={t("duration")} value={duration} />
+        <aside className="relative flex h-fit flex-col gap-6 border border-border p-6 lg:sticky lg:top-24">
+          <TickFrame />
 
-          <div className="flex flex-col gap-2">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              {t("technologies")}
-            </p>
+          <SidebarRow label={t("role")}>{role}</SidebarRow>
+          <SidebarRow label={t("duration")}>{duration}</SidebarRow>
+          <SidebarRow label={t("category")}>
+            <span className="flex items-center gap-1.5">
+              <CategoryIcon
+                className="size-3.5 text-brand-500 dark:text-brand-400"
+                aria-hidden="true"
+              />
+              {categoryLabel}
+            </span>
+          </SidebarRow>
+
+          {platforms.length > 0 && (
+            <SidebarRow label={t("platforms")}>
+              <ul className="flex flex-wrap gap-1.5">
+                {platforms.map((p) => (
+                  <Chip key={p}>{p}</Chip>
+                ))}
+              </ul>
+            </SidebarRow>
+          )}
+
+          <SidebarRow label={t("technologies")}>
             <ul className="flex flex-wrap gap-1.5">
               {project.technologies.map((tech) => (
-                <li key={tech}>
-                  <Badge variant="secondary" className="font-normal">
-                    {tech}
-                  </Badge>
+                <li
+                  key={tech}
+                  className="bg-secondary px-2.5 py-0.5 text-[0.6875rem] text-secondary-foreground"
+                >
+                  {tech}
                 </li>
               ))}
             </ul>
-          </div>
+          </SidebarRow>
 
           <DetailLinks project={project} t={t} />
         </aside>
       </div>
 
-      {/* ─── Screenshots gallery ───────────────────────────────── */}
+      {/* ─── Screenshots ───────────────────────────────────────── */}
       {project.images.length > 0 && (
         <ProjectGallery
           images={project.images}
           heading={t("screenshots")}
           title={title}
+          variant={project.category === "mobile" ? "phone" : "wide"}
         />
       )}
 
       {/* ─── Related ───────────────────────────────────────────── */}
-      {related.length > 0 && (
-        <section className="mt-20 border-t border-border pt-12">
-          <h2 className="mb-6 text-xl font-semibold text-foreground">
-            {pick(
-              {
-                en: "Related projects",
-                fr: "Projets associés",
-                ar: "مشاريع ذات صلة",
-              },
-              currentLocale,
-            )}
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2">
+      <section
+        aria-labelledby="related-heading"
+        className="mt-16 border-t border-border pt-12"
+      >
+        <h2
+          id="related-heading"
+          className="mb-6 font-heading text-[1.375rem] font-semibold text-foreground"
+        >
+          {t("related", { category: categoryLabel.toLowerCase() })}
+        </h2>
+        {related.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((p) => (
               <ProjectCard
                 key={p.id}
@@ -248,19 +276,108 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               />
             ))}
           </div>
-        </section>
-      )}
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            {t("noRelated", { category: categoryLabel.toLowerCase() })}{" "}
+            <Link
+              href="/projects"
+              className="font-heading font-semibold text-brand-700 transition-colors hover:text-brand-950 dark:text-brand-300 dark:hover:text-brand-100"
+            >
+              {t("browseAll")}
+            </Link>
+          </p>
+        )}
+      </section>
+
+      {/* ─── Prev / next ───────────────────────────────────────── */}
+      <nav
+        aria-label={`${t("prev")} / ${t("next")}`}
+        className="mt-16 grid border-t border-border sm:grid-cols-2"
+      >
+        <NeighbourLink
+          project={prev}
+          locale={currentLocale}
+          label={t("prev")}
+          direction="prev"
+        />
+        <NeighbourLink
+          project={next}
+          locale={currentLocale}
+          label={t("next")}
+          direction="next"
+        />
+      </nav>
     </main>
   );
 }
 
-function SidebarRow({ label, value }: { label: string; value: string }) {
+// ─── Pieces ────────────────────────────────────────────────────────────────
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+function Chip({
+  tone = "outline",
+  children,
+}: {
+  tone?: "outline" | "solid";
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex flex-col gap-1">
-      <p className="text-xs uppercase tracking-wide text-muted-foreground">
+    <li
+      className={cn(
+        "px-2.5 py-0.5 text-[0.6875rem] uppercase tracking-[0.06em]",
+        tone === "solid"
+          ? "bg-brand-950 text-surface-50 dark:bg-brand-900"
+          : "border border-border text-muted-foreground",
+      )}
+    >
+      {children}
+    </li>
+  );
+}
+
+function SidebarRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <p className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
-      <p className="text-sm font-medium text-foreground">{value}</p>
+      <div className="text-sm font-medium text-foreground">{children}</div>
+    </div>
+  );
+}
+
+/**
+ * Landscape art when the project has it; otherwise the phone composition
+ * for a mobile project with screenshots; otherwise nothing at all — an
+ * empty frame would only advertise the missing artwork.
+ */
+function HeroArt({ project, title }: { project: Project; title: string }) {
+  const hasImage = project.image !== "";
+  const hasScreens = project.category === "mobile" && project.images.length > 0;
+  if (!hasImage && !hasScreens) return null;
+
+  return (
+    <div className="relative mt-10 aspect-video w-full overflow-hidden border border-border">
+      <TickFrame />
+      {hasImage ? (
+        <Image
+          src={asset(project.image)}
+          alt={title}
+          fill
+          sizes="(max-width: 1024px) 100vw, 64rem"
+          className="object-cover"
+          priority
+        />
+      ) : (
+        <ProjectArtwork project={project} title={title} size="hero" priority />
+      )}
     </div>
   );
 }
@@ -269,68 +386,74 @@ function DetailLinks({
   project,
   t,
 }: {
-  project: NonNullable<ReturnType<typeof getProjectById>>;
+  project: Project;
   t: Awaited<ReturnType<typeof getTranslations<"Projects">>>;
 }) {
-  const links = [
-    { href: project.links.playStore, label: t("playStore") },
-    { href: project.links.appStore, label: t("appStore") },
-    { href: project.links.github, label: t("viewCode") },
-    { href: project.links.live, label: t("viewLive") },
-  ].filter((l): l is { href: string; label: string } => Boolean(l.href));
-
-  if (links.length === 0) return null;
+  const candidates: Array<{ href?: string; label: string; icon: IconComponent }> = [
+    { href: project.links.playStore, label: t("playStore"), icon: ExternalLink },
+    { href: project.links.appStore, label: t("appStore"), icon: ExternalLink },
+    { href: project.links.live, label: t("viewLive"), icon: Globe },
+    { href: project.links.github, label: t("viewCode"), icon: GithubMark },
+    { href: project.links.caseStudy, label: t("caseStudy"), icon: FileText },
+  ];
+  const links = candidates.filter(
+    (l): l is { href: string; label: string; icon: IconComponent } => Boolean(l.href),
+  );
 
   return (
-    <div className="flex flex-col gap-2 border-t border-border pt-4">
-      {links.map((link) => (
-        <a
-          key={link.href}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-between gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-        >
-          <span>{link.label}</span>
-          <ExternalLink className="size-3.5 text-muted-foreground" aria-hidden="true" />
-        </a>
-      ))}
+    <div className="flex flex-col gap-2 border-t border-border pt-5">
+      <p className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
+        {t("links")}
+      </p>
+      {links.length === 0 ? (
+        <p className="text-sm text-muted-foreground">{t("noLinks")}</p>
+      ) : (
+        links.map(({ href, label, icon: Icon }) => (
+          <a
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-between gap-2 border border-border px-3 py-2 font-heading text-sm font-semibold text-foreground transition-colors hover:border-brand-500 hover:text-brand-700 dark:hover:text-brand-300"
+          >
+            <span>{label}</span>
+            <Icon className="size-3.5 text-muted-foreground" aria-hidden="true" />
+          </a>
+        ))
+      )}
     </div>
   );
 }
 
-// ─── Hero image with graceful fallback ────────────────────────────────────
-
-function DetailImage({
-  src,
-  title,
-  className,
+function NeighbourLink({
+  project,
+  locale,
+  label,
+  direction,
 }: {
-  src: string;
-  title: string;
-  className?: string;
+  project?: Project;
+  locale: Locale;
+  label: string;
+  direction: "prev" | "next";
 }) {
-  const initial = title.charAt(0).toUpperCase();
+  const isNext = direction === "next";
+  const cell = cn(
+    "flex min-h-24 flex-col justify-center gap-1 py-6",
+    isNext ? "items-end text-end sm:border-s sm:border-border sm:ps-6" : "items-start sm:pe-6",
+  );
+
+  if (!project) return <div className={cell} aria-hidden="true" />;
+
   return (
-    <div
-      className={`relative aspect-video w-full overflow-hidden rounded-3xl border border-border ${className ?? ""}`}
-    >
-      <div
-        className="bg-gradient-hero absolute inset-0 flex items-center justify-center text-8xl font-bold text-white/80"
-        aria-hidden="true"
-      >
-        {initial}
-      </div>
-      {src && (
-        <Image
-          src={asset(src)}
-          alt={title}
-          fill
-          sizes="(max-width: 1024px) 100vw, 1024px"
-          className="relative object-cover"
-          priority
-        />
-      )}
-    </div>
+    <Link href={`/projects/${project.id}`} className={cn(cell, "group")}>
+      <span className="flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
+        {!isNext && <ArrowLeft className="size-3.5 rtl:rotate-180" aria-hidden="true" />}
+        {label}
+        {isNext && <ArrowRight className="size-3.5 rtl:rotate-180" aria-hidden="true" />}
+      </span>
+      <span className="font-heading text-lg font-semibold text-foreground transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+        {pick(project.title, locale)}
+      </span>
+    </Link>
   );
 }

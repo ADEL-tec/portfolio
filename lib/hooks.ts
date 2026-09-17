@@ -13,6 +13,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type RefObject,
 } from "react";
 import { useInView as useFramerInView, type UseInViewOptions } from "framer-motion";
@@ -131,6 +132,26 @@ export function useScrollPosition(): ScrollPosition {
 
   return pos;
 }
+
+/**
+ * The current `location.hash` (including the `#`), or `""`. Empty on the
+ * server and on the first client render so hydration matches; updates on
+ * in-page anchor clicks and history navigation.
+ */
+export function useHash(): string {
+  return useSyncExternalStore(subscribeToHash, getHash, getServerHash);
+}
+
+function subscribeToHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  window.addEventListener("popstate", onChange);
+  return () => {
+    window.removeEventListener("hashchange", onChange);
+    window.removeEventListener("popstate", onChange);
+  };
+}
+const getHash = () => window.location.hash;
+const getServerHash = () => "";
 
 /** Page scroll progress as a 0–1 number. */
 export function useScrollProgress(): number {

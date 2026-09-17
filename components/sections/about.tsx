@@ -1,53 +1,36 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Download, Mail } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { portfolioData, pick, type Locale } from "@/lib/data";
-import { downloadResume } from "@/lib/utils";
-import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/lib/animations";
+import { TickFrame } from "@/components/ui/tick-frame";
+import { portfolioData, pickList, type Locale } from "@/lib/data";
+import { asset } from "@/lib/utils";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
+
+interface AboutProps {
+  /**
+   * Eagerly load the portrait. Set on `/about`, where it sits above the
+   * fold and is the LCP element; left off on the home page, where it's far
+   * below the fold and preloading it would compete with the hero.
+   */
+  priority?: boolean;
+}
 
 /**
- * About section. Two-column on desktop:
- *   • Left: eyebrow → heading → bio → CTAs
- *   • Right: stat grid (years, projects, technologies)
+ * About section — portrait alongside the narrative.
  *
- * Stats are derived from `portfolioData` at render time so they stay in
- * sync as the data file grows. The years value drives an ICU plural via
- * the `About.yearsExperience` message.
+ * The portrait is desaturated and washed with the brand accent via a
+ * `color` blend, which collapses the photo into the two-tone palette so it
+ * sits with the rest of the page instead of introducing a third colour.
  */
-export function About() {
+export function About({ priority = false }: AboutProps) {
   const t = useTranslations("About");
   const locale = useLocale() as Locale;
+  const { personal } = portfolioData;
 
-  const { personal, projects, skills } = portfolioData;
-  const technologiesCount = skills.reduce(
-    (sum, group) => sum + group.items.length,
-    0,
-  );
-
-  const stats = [
-    {
-      value: personal.yearsExperience,
-      label: t("yearsLabel"),
-      ariaLabel: t("yearsExperience", { count: personal.yearsExperience }),
-    },
-    {
-      value: projects.length,
-      label: t("projectsLabel"),
-    },
-    {
-      value: `${technologiesCount}+`,
-      label: t("technologiesLabel"),
-    },
-  ];
+  const focusAreas = pickList(personal.focusAreas, locale);
 
   return (
     <motion.section
@@ -57,101 +40,75 @@ export function About() {
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerContainer(0.1, 0.05)}
-      className="relative mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24"
+      className="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-20 sm:px-8 lg:px-12 lg:py-28"
     >
-      <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-16">
-        {/* ─── Left: copy ──────────────────────────────────────────── */}
-        <div className="flex flex-col gap-5">
-          <motion.p
-            variants={fadeUp}
-            className="text-sm font-medium uppercase tracking-wider text-brand-600 dark:text-brand-400"
-          >
+      <div className="flex flex-wrap items-start gap-x-16 gap-y-12">
+        {/* ─── Portrait ────────────────────────────────────────────── */}
+        <motion.div
+          variants={fadeUp}
+          className="relative w-full max-w-80 shrink-0"
+        >
+          <TickFrame />
+          <div className="relative overflow-hidden border border-border">
+            <Image
+              src={asset(personal.avatar)}
+              alt={personal.fullName}
+              width={640}
+              height={640}
+              priority={priority}
+              sizes="20rem"
+              className="block h-auto w-full grayscale contrast-[1.05]"
+            />
+            {/* Duotone wash — `color` blend keeps the photo's luminance and
+                takes its hue from the accent. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-brand-500 mix-blend-color"
+            />
+          </div>
+        </motion.div>
+
+        {/* ─── Narrative ───────────────────────────────────────────── */}
+        <div className="min-w-70 flex-[1_1_26rem]">
+          <motion.p variants={fadeUp} className="eyebrow mb-3.5">
             {t("title")}
           </motion.p>
 
           <motion.h2
             id="about-heading"
             variants={fadeUp}
-            className="text-section font-bold tracking-tight text-foreground"
+            className="max-w-140 text-section font-heading font-bold text-foreground"
           >
             {t("heading")}
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="max-w-2xl text-lg leading-relaxed text-foreground/90"
+            className="mt-5 max-w-150 leading-relaxed text-muted-foreground"
           >
-            {pick(personal.bio, locale)}
+            {t("bio")}
           </motion.p>
 
           <motion.p
             variants={fadeUp}
-            className="max-w-2xl text-base leading-relaxed text-muted-foreground"
+            className="mt-4 max-w-150 leading-relaxed text-muted-foreground"
           >
             {t("extended")}
           </motion.p>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-4">
-            <Button onClick={() => downloadResume()} className="group">
-              <Download
-                className="size-4 transition-transform group-hover:translate-y-0.5"
-                aria-hidden="true"
-              />
-              {t("downloadCv")}
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/contact">
-                <Mail className="size-4" aria-hidden="true" />
-                {t("contactMe")}
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-
-        {/* ─── Right: stats card ──────────────────────────────────── */}
-        <motion.div
-          variants={fadeUp}
-          className="relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 backdrop-blur-sm"
-        >
-          {/* Decorative gradient corner */}
-          <div
-            className="bg-gradient-hero pointer-events-none absolute -top-12 -right-12 size-40 rounded-full opacity-20 blur-3xl"
-            aria-hidden="true"
-          />
-
-          <dl className="grid grid-cols-3 gap-6">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col gap-1"
-                aria-label={stat.ariaLabel}
+          {/* Capability pills — outlined in the accent rather than filled, so
+              they read as annotations on the copy, not as buttons. */}
+          <motion.ul variants={fadeUp} className="mt-7 flex flex-wrap gap-2.5">
+            {focusAreas.map((area) => (
+              <li
+                key={area}
+                className="border border-brand-500 px-3.5 py-1.5 text-[0.8125rem] text-brand-700 dark:text-brand-300"
               >
-                <dt className="text-3xl font-bold tabular-nums text-foreground sm:text-4xl">
-                  {stat.value}
-                </dt>
-                <dd className="text-xs uppercase tracking-wide text-muted-foreground">
-                  {stat.label}
-                </dd>
-              </div>
+                {area}
+              </li>
             ))}
-          </dl>
-
-          <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 text-sm">
-            <div className="flex items-baseline gap-2">
-              <span className="text-muted-foreground">📍</span>
-              <span className="text-foreground">
-                {pick(personal.location, locale)}
-              </span>
-            </div>
-            <a
-              href={`mailto:${personal.email}`}
-              className="inline-flex items-baseline gap-2 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span>✉</span>
-              <span className="font-mono text-xs">{personal.email}</span>
-            </a>
-          </div>
-        </motion.div>
+          </motion.ul>
+        </div>
       </div>
     </motion.section>
   );

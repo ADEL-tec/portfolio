@@ -10,6 +10,7 @@
 import type { Metadata } from "next";
 
 import { routing } from "@/i18n/routing";
+import { CATEGORY_META, PLATFORM_LABEL } from "@/lib/categories";
 import {
   pick,
   pickList,
@@ -173,11 +174,9 @@ export function personSchema(locale: Locale) {
 export function projectSchema(project: Project, locale: Locale) {
   const { personal } = portfolioData;
 
-  // Map distribution links to an operatingSystem hint Google understands.
-  const oses: string[] = [];
-  if (project.links.playStore) oses.push("Android");
-  if (project.links.appStore) oses.push("iOS");
-  const operatingSystem = oses.join(", ") || "Cross-platform";
+  const operatingSystem =
+    project.platforms.map((p) => PLATFORM_LABEL[p]).join(", ") ||
+    "Cross-platform";
 
   const downloadUrl =
     project.links.appStore ?? project.links.playStore ?? undefined;
@@ -187,9 +186,9 @@ export function projectSchema(project: Project, locale: Locale) {
     "@type": "SoftwareApplication",
     name: pick(project.title, locale),
     description: pick(project.description, locale),
-    applicationCategory: "MobileApplication",
+    applicationCategory: CATEGORY_META[project.category].schemaType,
     operatingSystem,
-    image: absUrl(project.image),
+    image: project.image ? absUrl(project.image) : undefined,
     url: `${SITE_URL}/${locale}/projects/${project.id}`,
     downloadUrl,
     keywords: [

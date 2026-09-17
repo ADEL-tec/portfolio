@@ -1,53 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin } from "lucide-react";
-import { useLocale } from "next-intl";
+import { GraduationCap, Languages, MapPin } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
-import { cn } from "@/lib/utils";
-import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/lib/animations";
+import { TickFrame } from "@/components/ui/tick-frame";
+import { SectionHeading } from "./section-heading";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import {
   pick,
   portfolioData,
   type EducationEntry,
   type Locale,
-  type Localized,
 } from "@/lib/data";
 
 /**
- * Education timeline — shorter than the work timeline so we render it inline
- * rather than splitting a card component out. Same vertical-rail visual
- * vocabulary as `Experience`, with the alternating left/right layout and
- * the rail centered at md+.
+ * Education and working languages — the last two lines of a CV, kept
+ * together so the page ends its résumé section in one place.
  *
- * Title and subtitle copy isn't in the messages bundle today — kept inline
- * as `Localized` constants so adding a locale is a single-file edit.
+ * Degrees are a pair of framed cards rather than a second timeline — two
+ * entries don't justify a rail, and repeating the Experience treatment
+ * would make the shorter list look like the more important one. Languages
+ * are a single ruled row underneath.
  */
-
-const COPY = {
-  title: {
-    en: "Education",
-    fr: "Formation",
-    ar: "التعليم",
-  } satisfies Localized,
-  subtitle: {
-    en: "Where I trained — and what I picked up along the way.",
-    fr: "Là où je me suis formé — et ce que j'y ai appris.",
-    ar: "حيث تلقّيت تكويني — وما اكتسبته خلال هذه الرحلة.",
-  } satisfies Localized,
-};
-
 export function Education() {
+  const t = useTranslations("Education");
   const locale = useLocale() as Locale;
 
   // Most recent first.
   const entries = [...portfolioData.education].sort(
     (a, b) => parseInt(b.completionDate, 10) - parseInt(a.completionDate, 10),
   );
+  const languages = portfolioData.languages;
 
   return (
     <motion.section
@@ -57,115 +41,91 @@ export function Education() {
       whileInView="visible"
       viewport={viewportOnce}
       variants={staggerContainer(0.1, 0.05)}
-      className="relative mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
-      <header className="mb-12 flex flex-col gap-3">
-        <motion.p
-          variants={fadeUp}
-          className="text-sm font-medium uppercase tracking-wider text-brand-600 dark:text-brand-400"
-        >
-          {pick(COPY.title, locale)}
-        </motion.p>
-        <motion.h2
-          id="education-heading"
-          variants={fadeUp}
-          className="text-section font-bold tracking-tight text-foreground"
-        >
-          {pick(COPY.subtitle, locale)}
-        </motion.h2>
-      </header>
+      <SectionHeading
+        id="education-heading"
+        eyebrow={t("title")}
+        heading={t("subtitle")}
+        headingClassName="max-w-160"
+        className="mb-11"
+      />
 
-      <ol className="relative" aria-label={pick(COPY.title, locale)}>
-        <span
-          aria-hidden="true"
-          className="absolute top-2 bottom-2 start-4 w-px bg-gradient-to-b from-border via-border to-transparent md:start-1/2 md:-translate-x-1/2"
-        />
+      <div className="grid gap-8 sm:grid-cols-2">
+        {entries.map((entry) => (
+          <EducationCard key={entry.id} entry={entry} locale={locale} />
+        ))}
+      </div>
 
-        {entries.map((entry, i) => {
-          const side: "start" | "end" = i % 2 === 0 ? "start" : "end";
-          return (
-            <li
-              key={entry.id}
-              className={cn(
-                "relative pb-10 last:pb-0 ps-12",
-                "md:ps-0 md:grid md:grid-cols-2 md:gap-12",
-              )}
+      <motion.div variants={fadeUp} className="mt-10">
+        <p className="mb-3.5 flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
+          <Languages
+            className="size-4 text-brand-500 dark:text-brand-400"
+            aria-hidden="true"
+          />
+          {t("languages")}
+        </p>
+        <dl className="relative grid border-s border-t border-border sm:grid-cols-3">
+          <TickFrame />
+          {languages.map((lang) => (
+            <div
+              key={lang.code}
+              className="flex items-baseline justify-between gap-3 border-b border-e border-border px-5 py-4"
             >
-              {/* Dot */}
-              <span
-                aria-hidden="true"
-                className={cn(
-                  "absolute top-6 start-4 -translate-x-1/2 md:start-1/2 md:-translate-x-1/2",
-                  "inline-flex size-7 items-center justify-center rounded-full",
-                  "bg-brand-500/10 text-brand-600 ring-4 ring-background dark:text-brand-400",
-                )}
-              >
-                <GraduationCap className="size-3.5" />
-              </span>
-
-              <div
-                className={cn(
-                  "md:col-span-1",
-                  side === "start" ? "md:col-start-1" : "md:col-start-2",
-                )}
-              >
-                <EducationCard entry={entry} locale={locale} side={side} />
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+              <dt className="font-heading text-[1.0625rem] font-semibold text-foreground">
+                {pick(lang.name, locale)}
+              </dt>
+              <dd className="text-[0.8125rem] text-muted-foreground">
+                {t(`levels.${lang.level}`)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </motion.div>
     </motion.section>
   );
 }
 
-interface EducationCardProps {
+function EducationCard({
+  entry,
+  locale,
+}: {
   entry: EducationEntry;
   locale: Locale;
-  side: "start" | "end";
-}
-
-function EducationCard({ entry, locale, side }: EducationCardProps) {
-  const degree = pick(entry.degree, locale);
-  const institution = pick(entry.institution, locale);
-  const university = pick(entry.university, locale);
-  const location = pick(entry.location, locale);
-  const description = pick(entry.description, locale);
-
+}) {
   return (
     <motion.article
       variants={fadeUp}
-      className={cn(
-        "flex flex-col gap-2 rounded-2xl border border-border bg-card/60 p-5 sm:p-6",
-        "transition-all duration-300 hover:border-brand-500/40 hover:bg-card hover:shadow-lg hover:shadow-brand-900/5",
-        side === "start" && "md:text-end md:items-end",
-      )}
+      className="relative flex flex-col border border-border p-6 sm:p-7"
     >
-      <p
-        className={cn(
-          "text-xs font-medium uppercase tracking-wider text-muted-foreground",
-        )}
-      >
-        {entry.completionDate}
-      </p>
-      <h3 className="text-lg font-semibold leading-tight text-foreground">
-        {degree}
+      <TickFrame />
+
+      <div className="mb-3.5 flex items-center gap-2.5">
+        <GraduationCap
+          className="size-5 shrink-0 text-brand-500 dark:text-brand-400"
+          aria-hidden="true"
+        />
+        <p className="text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">
+          {entry.completionDate}
+        </p>
+      </div>
+
+      <h3 className="font-heading text-xl font-semibold leading-tight text-foreground">
+        {pick(entry.degree, locale)}
       </h3>
-      <p className="text-sm font-medium text-brand-600 dark:text-brand-400">
-        {institution}
+      <p className="mt-1.5 text-sm text-brand-700 dark:text-brand-300">
+        {pick(entry.institution, locale)}
       </p>
-      <p className="text-xs text-muted-foreground">{university}</p>
-      <p
-        className={cn(
-          "flex items-center gap-1.5 text-xs text-muted-foreground",
-          side === "start" && "md:flex-row-reverse",
-        )}
-      >
-        <MapPin className="size-3" aria-hidden="true" />
-        <span>{location}</span>
+      <p className="text-[0.8125rem] text-muted-foreground">
+        {pick(entry.university, locale)}
       </p>
-      <p className="mt-2 text-sm leading-relaxed text-foreground/90">
-        {description}
+      <p className="mt-1.5 flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground">
+        <MapPin className="size-3 shrink-0" aria-hidden="true" />
+        {pick(entry.location, locale)}
+      </p>
+
+      <p className="mt-4 text-[0.90625rem] leading-relaxed text-muted-foreground">
+        {pick(entry.description, locale)}
       </p>
     </motion.article>
   );
